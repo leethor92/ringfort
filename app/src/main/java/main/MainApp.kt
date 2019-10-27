@@ -12,8 +12,8 @@ class MainApp : Application(), AnkoLogger {
     override fun onCreate() {
         super.onCreate()
         info("Ringfort started")
-        ringforts.add(RingfortModel("One", "About one..."))
+        /*ringforts.add(RingfortModel("One", "About one..."))
         ringforts.add(RingfortModel("Two", "About two..."))
-        ringforts.add(RingfortModel("Three", "About three..."))
+        ringforts.add(RingfortModel("Three", "About three..."))*/
     }
 }

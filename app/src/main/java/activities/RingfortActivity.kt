@@ -30,6 +30,8 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
                 for (i in app.ringforts.indices) {
                     info("Ringfort[$i]:${app.ringforts[i]}")
                 }
+                setResult(AppCompatActivity.RESULT_OK)
+                finish()
             }
             else
             {
