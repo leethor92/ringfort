@@ -4,6 +4,7 @@ package activities
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_ringfort.*
+import main.MainApp
 import org.jetbrains.anko.info
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
@@ -13,15 +14,22 @@ import models.RingfortModel
 class RingfortActivity : AppCompatActivity(), AnkoLogger {
 
     var ringfort = RingfortModel()
+    lateinit var app : MainApp
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort)
+        app = application as MainApp
 
         btnAdd.setOnClickListener() {
             ringfort.title = ringfortTitle.text.toString()
+            ringfort.description = description.text.toString()
             if(ringfort.title.isNotEmpty()) {
-                info("add Button Pressed: $ringfort")
+                app.ringforts.add(ringfort.copy())
+                info("add Button Pressed: ${ringfort}")
+                for (i in app.ringforts.indices) {
+                    info("Ringfort[$i]:${app.ringforts[i]}")
+                }
             }
             else
             {

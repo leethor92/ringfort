@@ -2,4 +2,6 @@
     <string name="app_name">Ringfort</string>
     <string name="button_addRingfort">Add Ringfort</string>
     <string name="hint_ringfortTitle">Ringfort Title</string>
+    <string name="hint_ringfortDescription">Description </string>
+    <string name="menu_addRingfort">Add</string>
 </resources>
