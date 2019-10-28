@@ -39,4 +39,8 @@ class RingfortMemStore : RingfortStore, AnkoLogger {
     fun logAll() {
         ringforts.forEach { info("${it}") }
     }
+
+    override fun delete(ringfort: RingfortModel) {
+        ringforts.remove(ringfort)
+    }
 }

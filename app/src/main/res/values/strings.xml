@@ -5,6 +5,7 @@
     <string name="hint_ringfortDescription">Description </string>
     <string name="menu_addRingfort">Add</string>
     <string name="menu_cancelRingfort">Cancel</string>
+    <string name="menu_deleteRingfort">Delete</string>
     <string name="enter_ringfort_title"> Please enter a Ringfort Title </string>
     <string name="save_ringfort"> Save Ringfort </string>
     <string name="button_addImage"> Add Image </string>
