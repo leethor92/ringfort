@@ -5,7 +5,7 @@
     <item
         android:id="@+id/item_delete"
         android:title="@string/menu_deleteRingfort"
-        android:visible="false"
+
         app:showAsAction="always" />
 
     <item
