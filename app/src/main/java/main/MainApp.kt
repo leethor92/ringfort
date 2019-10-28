@@ -1,21 +1,19 @@
 package main
 
 import android.app.Application
+import models.RingfortJSONStore
 import models.RingfortMemStore
-import models.RingfortModel
+import models.RingfortStore
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 
 class MainApp : Application(), AnkoLogger {
 
-    //val ringforts = ArrayList<RingfortModel>()
-    val ringforts = RingfortMemStore()
+    lateinit var ringforts: RingfortStore
 
     override fun onCreate() {
         super.onCreate()
+        ringforts = RingfortJSONStore(applicationContext)
         info("Ringfort started")
-        /*ringforts.add(RingfortModel("One", "About one..."))
-        ringforts.add(RingfortModel("Two", "About two..."))
-        ringforts.add(RingfortModel("Three", "About three..."))*/
     }
 }

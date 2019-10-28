@@ -28,8 +28,7 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        //recyclerView.adapter = RingfortAdapter(app.ringforts)
-        recyclerView.adapter = RingfortAdapter(app.ringforts.findAll(), this)
+        loadRingforts()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -49,7 +48,16 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        recyclerView.adapter?.notifyDataSetChanged()
+        loadRingforts()
         super.onActivityResult(requestCode, resultCode, data)
+    }
+
+    private fun loadRingforts() {
+        showRingforts(app.ringforts.findAll())
+    }
+
+    fun showRingforts (ringforts: List<RingfortModel>) {
+        recyclerView.adapter = RingfortAdapter(ringforts, this)
+        recyclerView.adapter?.notifyDataSetChanged()
     }
 }
