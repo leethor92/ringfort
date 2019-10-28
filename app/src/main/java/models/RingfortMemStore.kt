@@ -24,11 +24,14 @@ class RingfortMemStore : RingfortStore, AnkoLogger {
     }
 
     override fun update(ringfort: RingfortModel) {
-        var foundPlacemark: RingfortModel? = ringforts.find { p -> p.id == ringfort.id }
-        if (foundPlacemark != null) {
-            foundPlacemark.title = ringfort.title
-            foundPlacemark.description = ringfort.description
-            foundPlacemark.image = ringfort.image
+        var foundRingfort: RingfortModel? = ringforts.find { p -> p.id == ringfort.id }
+        if (foundRingfort != null) {
+            foundRingfort.title = ringfort.title
+            foundRingfort.description = ringfort.description
+            foundRingfort.image = ringfort.image
+            foundRingfort.lat = ringfort.lat
+            foundRingfort.lng = ringfort.lng
+            foundRingfort.zoom = ringfort.zoom
             logAll()
         }
     }

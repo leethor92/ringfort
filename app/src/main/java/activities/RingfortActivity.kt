@@ -11,6 +11,7 @@ import helpers.readImageFromPath
 import helpers.showImagePicker
 import kotlinx.android.synthetic.main.activity_ringfort.*
 import main.MainApp
+import models.Location
 import org.jetbrains.anko.info
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
@@ -23,6 +24,8 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
     var ringfort = RingfortModel()
     lateinit var app : MainApp
     val IMAGE_REQUEST = 1
+    val LOCATION_REQUEST = 2
+    //var location = Location(52.245696, -7.139102, 15f)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,11 +71,18 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
         }
 
         ringfortLocation.setOnClickListener {
-            info ("Set Location Pressed")
+            val location = Location(52.245696, -7.139102, 15f)
+            if (ringfort.zoom != 0f) {
+                location.lat =  ringfort.lat
+                location.lng = ringfort.lng
+                location.zoom = ringfort.zoom
+            }
+            startActivityForResult(intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
         }
 
         ringfortLocation.setOnClickListener {
-            startActivity (intentFor<MapActivity>())
+            val location = Location(52.245696, -7.139102, 15f)
+            startActivity (intentFor<MapActivity>().putExtra("location", location))
         }
     }
 
@@ -99,6 +109,14 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
                     ringfort.image = data.getData().toString()
                     ringfortImage.setImageBitmap(readImage(this, resultCode, data))
                     chooseImage.setText(R.string.change_ringfort_image)
+                }
+            }
+            LOCATION_REQUEST -> {
+                if (data != null) {
+                    val location = data.extras?.getParcelable<Location>("location")!!
+                    ringfort.lat = location.lat
+                    ringfort.lng = location.lng
+                    ringfort.zoom = location.zoom
                 }
             }
         }
