@@ -3,6 +3,8 @@ package activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_ringfort.*
 import main.MainApp
 import org.jetbrains.anko.info
@@ -20,16 +22,23 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort)
         app = application as MainApp
+        toolbarAdd.title = title
+        setSupportActionBar(toolbarAdd)
+
+        info("Placemark Activity started..")
+
+        if (intent.hasExtra("ringfort_edit")) {
+            ringfort = intent.extras?.getParcelable<RingfortModel>("ringfort_edit")!!
+            ringfortTitle.setText(ringfort.title)
+            description.setText(ringfort.description)
+        }
 
         btnAdd.setOnClickListener() {
             ringfort.title = ringfortTitle.text.toString()
             ringfort.description = description.text.toString()
             if(ringfort.title.isNotEmpty()) {
-                app.ringforts.add(ringfort.copy())
+                app.ringforts.create(ringfort.copy())
                 info("add Button Pressed: ${ringfort}")
-                for (i in app.ringforts.indices) {
-                    info("Ringfort[$i]:${app.ringforts[i]}")
-                }
                 setResult(AppCompatActivity.RESULT_OK)
                 finish()
             }
@@ -38,5 +47,19 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
                 toast("Please Enter a title")
             }
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.menu_ringfort, menu)
+        return super.onCreateOptionsMenu(menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.item_cancel -> {
+                finish()
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 }

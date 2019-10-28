@@ -4,4 +4,5 @@
     <string name="hint_ringfortTitle">Ringfort Title</string>
     <string name="hint_ringfortDescription">Description </string>
     <string name="menu_addRingfort">Add</string>
+    <string name="menu_cancelRingfort">Cancel</string>
 </resources>

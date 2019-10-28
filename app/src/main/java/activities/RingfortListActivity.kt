@@ -10,9 +10,10 @@ import kotlinx.android.synthetic.main.card_ringfort.view.*
 import org.wit.ringfort.R
 import main.MainApp
 import models.RingfortModel
+import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
 
-class RingfortListActivity : AppCompatActivity() {
+class RingfortListActivity : AppCompatActivity(), RingfortListener {
 
     lateinit var app: MainApp
 
@@ -26,7 +27,8 @@ class RingfortListActivity : AppCompatActivity() {
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter = RingfortAdapter(app.ringforts)
+        //recyclerView.adapter = RingfortAdapter(app.ringforts)
+        recyclerView.adapter = RingfortAdapter(app.ringforts.findAll(), this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -40,33 +42,8 @@ class RingfortListActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
-}
 
-class RingfortAdapter constructor(private var ringforts: List<RingfortModel>) :
-    RecyclerView.Adapter<RingfortAdapter.MainHolder>() {
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainHolder {
-        return MainHolder(
-            LayoutInflater.from(parent?.context).inflate(
-                R.layout.card_ringfort,
-                parent,
-                false
-            )
-        )
-    }
-
-    override fun onBindViewHolder(holder: MainHolder, position: Int) {
-        val ringfort = ringforts[holder.adapterPosition]
-        holder.bind(ringfort)
-    }
-
-    override fun getItemCount(): Int = ringforts.size
-
-    class MainHolder constructor(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(ringfort: RingfortModel) {
-            itemView.ringfortTitle.text = ringfort.title
-            itemView.description.text = ringfort.description
-        }
+    override fun onRingfortClick(ringfort: RingfortModel) {
+        startActivityForResult(intentFor<RingfortActivity>().putExtra("ringfort_edit", ringfort), 0)
     }
 }
