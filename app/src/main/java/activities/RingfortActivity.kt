@@ -65,6 +65,10 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
         chooseImage.setOnClickListener {
             showImagePicker(this, IMAGE_REQUEST)
         }
+
+        ringfortLocation.setOnClickListener {
+            info ("Set Location Pressed")
+        }
     }
 
 
