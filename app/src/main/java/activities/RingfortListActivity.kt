@@ -1,5 +1,6 @@
 package activities
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
@@ -45,5 +46,10 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
 
     override fun onRingfortClick(ringfort: RingfortModel) {
         startActivityForResult(intentFor<RingfortActivity>().putExtra("ringfort_edit", ringfort), 0)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
