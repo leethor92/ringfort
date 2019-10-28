@@ -28,6 +28,7 @@ class RingfortMemStore : RingfortStore, AnkoLogger {
         if (foundPlacemark != null) {
             foundPlacemark.title = ringfort.title
             foundPlacemark.description = ringfort.description
+            foundPlacemark.image = ringfort.image
             logAll()
         }
     }

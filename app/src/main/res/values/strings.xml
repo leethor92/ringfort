@@ -9,4 +9,5 @@
     <string name="save_ringfort"> Save Ringfort </string>
     <string name="button_addImage"> Add Image </string>
     <string name="select_ringfort_image">Select ringfort image</string>
+    <string name="change_ringfort_image">Change ringfort image</string>
 </resources>
