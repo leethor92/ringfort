@@ -16,6 +16,7 @@ import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 import org.wit.ringfort.R
 import models.RingfortModel
+import org.jetbrains.anko.intentFor
 
 class RingfortActivity : AppCompatActivity(), AnkoLogger {
 
@@ -68,6 +69,10 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
 
         ringfortLocation.setOnClickListener {
             info ("Set Location Pressed")
+        }
+
+        ringfortLocation.setOnClickListener {
+            startActivity (intentFor<MapActivity>())
         }
     }
 
