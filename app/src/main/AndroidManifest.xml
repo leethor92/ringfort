@@ -20,9 +20,8 @@
 
         <activity
             android:name="activities.MapActivity"
-            android:label="@string/title_activity_map"></activity>
-        <activity android:name="activities.RingfortActivity"></activity>
-
+            android:label="@string/title_activity_map" />
+        <activity android:name="activities.RingfortActivity" />
         <activity android:name="activities.RingfortListActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
