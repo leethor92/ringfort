@@ -100,6 +100,9 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             R.id.item_cancel -> {
                 finish()
             }
+            R.id.back -> {
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
