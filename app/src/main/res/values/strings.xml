@@ -17,7 +17,8 @@
     <string name="hint_signupPassword">Password</string>
     <string name="button_register">Register account</string>
     <string name="button_register_login">Login to account</string>
-    <string name="hint_loginEmail">Login to account</string>
-    <string name="hint_loginPassword">Login to account</string>
+    <string name="hint_loginEmail">Enter your login email</string>
+    <string name="hint_loginPassword">Enter your login password</string>
     <string name="button_login">Login to account</string>
+    <string name="button_login_register">Register an account</string>
 </resources>

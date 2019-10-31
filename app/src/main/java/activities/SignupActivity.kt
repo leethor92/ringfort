@@ -15,7 +15,6 @@ class SignupActivity  : AppCompatActivity(), AnkoLogger {
 
     lateinit var app: MainApp
     var user = UserModel()
-    var users = ArrayList<UserModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +22,20 @@ class SignupActivity  : AppCompatActivity(), AnkoLogger {
         app = application as MainApp
 
         register.setOnClickListener() {
-            startActivityForResult<RingfortListActivity>(0)
+            user.email = email.text.toString()
+            user.password = password.text.toString()
+            if (user.email.isNotEmpty() && user.password.isNotEmpty()) {
+                if (app.users.signup(user)) {
+                    app.loginUser = user
+                    startActivityForResult<RingfortListActivity>(0)
+                }
+                else {
+                    toast("A user with this email already exists")
+                }
+            }
+            else {
+                toast("Email and password are required")
+            }
         }
 
         register_login.setOnClickListener() {
