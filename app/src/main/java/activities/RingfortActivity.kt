@@ -10,6 +10,7 @@ import helpers.readImage
 import helpers.readImageFromPath
 import helpers.showImagePicker
 import kotlinx.android.synthetic.main.activity_ringfort.*
+import kotlinx.android.synthetic.main.activity_ringfort_list.*
 import main.MainApp
 import models.Location
 import org.jetbrains.anko.info
@@ -33,6 +34,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
         var edit = false
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         info("Placemark Activity started..")
 
@@ -98,9 +100,6 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
                 finish()
             }
             R.id.item_cancel -> {
-                finish()
-            }
-            R.id.back -> {
                 finish()
             }
         }

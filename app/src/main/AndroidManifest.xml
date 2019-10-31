@@ -21,7 +21,9 @@
         <activity
             android:name="activities.MapActivity"
             android:label="@string/title_activity_map" />
-        <activity android:name="activities.RingfortActivity" />
+        <activity android:name="activities.RingfortActivity"
+            android:parentActivityName="activities.RingfortListActivity"/>
+
         <activity android:name="activities.RingfortListActivity"/>
         <activity android:name="activities.LoginActivity"/>
         <activity android:name="activities.SignupActivity" >

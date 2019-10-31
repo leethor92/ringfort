@@ -4,6 +4,8 @@
     <string name="hint_ringfortTitle">Ringfort Title</string>
     <string name="hint_ringfortDescription">Description </string>
     <string name="menu_addRingfort">Add</string>
+    <string name="menu_logout">Logout</string>
+    <string name="menu_settings">Settings</string>
     <string name="menu_cancelRingfort">Cancel</string>
     <string name="menu_deleteRingfort">Delete</string>
     <string name="enter_ringfort_title"> Please enter a Ringfort Title </string>
