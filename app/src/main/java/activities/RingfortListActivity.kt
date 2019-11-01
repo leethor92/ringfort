@@ -53,6 +53,13 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
                 startActivityForResult<LoginActivity>(0)
                 finish()
             }
+            R.id.item_settings -> {
+                app.loginUser = UserModel()
+                toast("Viewing Settings")
+                startActivityForResult<SettingsActivity>(0)
+                finish()
+            }
+
         }
         return super.onOptionsItemSelected(item)
     }
