@@ -11,8 +11,10 @@ import kotlinx.android.synthetic.main.card_ringfort.view.*
 import org.wit.ringfort.R
 import main.MainApp
 import models.RingfortModel
+import models.UserModel
 import org.jetbrains.anko.intentFor
 import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.toast
 
 class RingfortListActivity : AppCompatActivity(), RingfortListener {
 
@@ -29,6 +31,10 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         loadRingforts()
+
+        toolbar.setOnClickListener{
+
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -38,7 +44,15 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.item_add -> startActivityForResult<RingfortActivity>(0)
+            R.id.item_add -> {
+                startActivityForResult<RingfortActivity>(0)
+            }
+            R.id.item_logout -> {
+                app.loginUser = UserModel()
+                toast("Logged out")
+                startActivityForResult<LoginActivity>(0)
+                finish()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
