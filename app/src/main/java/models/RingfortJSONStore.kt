@@ -45,7 +45,7 @@ class RingfortJSONStore : RingfortStore, AnkoLogger {
         if (foundRingfort != null) {
             foundRingfort.title = ringfort.title
             foundRingfort.description = ringfort.description
-            foundRingfort.image = ringfort.image
+            foundRingfort.images = ringfort.images
             foundRingfort.lat = ringfort.lat
             foundRingfort.lng = ringfort.lng
             foundRingfort.zoom = ringfort.zoom

@@ -79,11 +79,16 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp"/>
 
-                <ImageView
-                    android:id="@+id/ringfortImage"
+                <HorizontalScrollView
                     android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:id="@+id/imageGallery"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:srcCompat="@mipmap/ic_launcher"/>
+                    android:orientation="horizontal" />
+            </HorizontalScrollView>
 
                 <Button
                     android:id="@+id/ringfortLocation"

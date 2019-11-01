@@ -5,7 +5,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class RingfortModel(var id: Long = 0,
-                         var image: String = "",
+                         var images:ArrayList<String> = ArrayList(),
                          var title: String = "",
                           var description: String = "",
                          var lat : Double = 0.0,

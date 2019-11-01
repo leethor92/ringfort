@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ImageView
+import android.widget.LinearLayout
 import helpers.readImage
 import helpers.readImageFromPath
 import helpers.showImagePicker
@@ -44,9 +46,21 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             ringfortTitle.setText(ringfort.title)
             description.setText(ringfort.description)
             btnAdd.setText(R.string.save_ringfort)
-            ringfortImage.setImageBitmap(readImageFromPath(this, ringfort.image))
-            if (ringfort.image != null) {
-                chooseImage.setText(R.string.change_ringfort_image)
+            if (ringfort.images.size > 0) {
+                for (image in ringfort.images) {
+                    val imageView: ImageView = ImageView(this)
+                    var params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                        600,
+                        600
+                    )
+                    params.setMargins(0, 0, 10, 0)
+                    imageView.layoutParams = params
+                    imageView.setImageBitmap(readImageFromPath(this, image))
+                    imageGallery.addView(imageView)
+                }
+                if (ringfort.images[0] != null) {
+                    chooseImage.setText(R.string.change_ringfort_image)
+                }
             }
         }
 
@@ -81,10 +95,6 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             startActivityForResult(intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
         }
 
-        /*ringfortLocation.setOnClickListener {
-            val location = Location(52.245696, -7.139102, 15f)
-            startActivity (intentFor<MapActivity>().putExtra("location", location))
-        }*/
     }
 
 
@@ -111,8 +121,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
         when (requestCode) {
             IMAGE_REQUEST -> {
                 if (data != null) {
-                    ringfort.image = data.getData().toString()
-                    ringfortImage.setImageBitmap(readImage(this, resultCode, data))
+                    ringfort.images.add(data.getData().toString())
                     chooseImage.setText(R.string.change_ringfort_image)
                 }
             }
