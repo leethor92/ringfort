@@ -10,11 +10,9 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
-import helpers.readImage
 import helpers.readImageFromPath
 import helpers.showImagePicker
 import kotlinx.android.synthetic.main.activity_ringfort.*
-import kotlinx.android.synthetic.main.activity_ringfort_list.*
 import main.MainApp
 import models.Location
 import org.jetbrains.anko.info
@@ -23,6 +21,8 @@ import org.jetbrains.anko.toast
 import org.wit.ringfort.R
 import models.RingfortModel
 import org.jetbrains.anko.intentFor
+import java.text.SimpleDateFormat
+import java.util.*
 
 class RingfortActivity : AppCompatActivity(), AnkoLogger {
 
@@ -48,6 +48,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             ringfortTitle.setText(ringfort.title)
             description.setText(ringfort.description)
             addNotes.setText(ringfort.notes)
+            dateVisited.setText(ringfort.date)
 
             btnAdd.setText(R.string.save_ringfort)
             if (ringfort.images.size > 0) {
@@ -151,7 +152,19 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             when (view.id) {
                 R.id.checkBox -> {
                     info ("Visited $ringfort")
-                    ringfort.visited = checkBox.isChecked
+                    val formatD = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+                    val currentDate = formatD.format(Date())
+
+                    if (checkBox.isChecked) {
+                        ringfort.visited = true
+                        ringfort.date = currentDate
+                    }
+
+                    if (checkBox.isChecked.not())
+                    {
+                        ringfort.visited = true
+                        ringfort.date = "Not visited yet"
+                    }
                 }
             }
         }

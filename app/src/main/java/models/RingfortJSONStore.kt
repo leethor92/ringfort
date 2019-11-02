@@ -51,6 +51,7 @@ class RingfortJSONStore : RingfortStore, AnkoLogger {
             foundRingfort.zoom = ringfort.zoom
             foundRingfort.visited = ringfort.visited
             foundRingfort.notes = ringfort.notes
+            foundRingfort.date = ringfort.date
         }
         serialize()
     }
