@@ -29,5 +29,5 @@
     <string name="checkboxRingFortVisited">checkboxRingFortVisited</string>
     <string name="visitDate">visitDate</string>
     <string name="checkbox_visited">Visited!</string>
-
+    <string name="hint_notes">Record any additional notes</string>
 </resources>

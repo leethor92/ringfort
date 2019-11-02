@@ -11,7 +11,8 @@ data class RingfortModel(var id: Long = 0,
                          var lat : Double = 0.0,
                          var lng: Double = 0.0,
                          var zoom: Float = 0f,
-                         var visited: Boolean = false) : Parcelable
+                         var visited: Boolean = false,
+                         var notes: String = "") : Parcelable
 
 @Parcelize
 data class Location(var lat: Double = 0.0,

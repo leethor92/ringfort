@@ -47,6 +47,8 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             ringfort = intent.extras?.getParcelable<RingfortModel>("ringfort_edit")!!
             ringfortTitle.setText(ringfort.title)
             description.setText(ringfort.description)
+            addNotes.setText(ringfort.notes)
+
             btnAdd.setText(R.string.save_ringfort)
             if (ringfort.images.size > 0) {
                 for (image in ringfort.images) {
@@ -70,6 +72,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
         btnAdd.setOnClickListener() {
             ringfort.title = ringfortTitle.text.toString()
             ringfort.description = description.text.toString()
+            ringfort.notes = addNotes.text.toString()
             if (ringfort.title.isEmpty()) {
                 toast(R.string.enter_ringfort_title)
             } else {
@@ -114,6 +117,10 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
             }
             R.id.item_cancel -> {
                 finish()
+            }
+            android.R.id.home -> {
+                finish()
+                return true
             }
         }
         return super.onOptionsItemSelected(item)

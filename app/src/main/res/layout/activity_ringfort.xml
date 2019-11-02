@@ -67,6 +67,17 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
+                <EditText
+                    android:id="@+id/addNotes"
+                    android:layout_width="match_parent"
+                    android:layout_height="110dp"
+                    android:hint="@string/hint_notes"
+                    android:ellipsize="start"
+                    android:gravity="center_horizontal"
+                    android:ems="10"
+                    android:background="@android:color/darker_gray"
+                    android:inputType="textMultiLine" />
+
                 <CheckBox
                     android:id="@+id/checkBox"
                     android:layout_width="wrap_content"

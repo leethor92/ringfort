@@ -42,8 +42,6 @@ class RingfortAdapter constructor(
             if (ringfort.images.size > 0){
                 itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, ringfort.images[0]))
             }
-            if (ringfort.visited == true)
-                itemView.visited.text = "Visited!"
             itemView.setOnClickListener { listener.onRingfortClick(ringfort) }
         }
     }
