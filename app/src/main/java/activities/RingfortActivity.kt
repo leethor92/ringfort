@@ -6,6 +6,8 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
 import helpers.readImage
@@ -131,6 +133,17 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
                     ringfort.lat = location.lat
                     ringfort.lng = location.lng
                     ringfort.zoom = location.zoom
+                }
+            }
+        }
+    }
+
+    fun onCheckboxClicked(view: View) {
+        if (view is CheckBox) {
+            when (view.id) {
+                R.id.checkBox -> {
+                    info ("Visited $ringfort")
+                    ringfort.visited = checkBox.isChecked
                 }
             }
         }

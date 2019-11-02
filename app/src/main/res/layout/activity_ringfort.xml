@@ -67,6 +67,16 @@
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp" />
 
+                <CheckBox
+                    android:id="@+id/checkBox"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignStart="@+id/imageIcon"
+                    android:layout_marginBottom="14dp"
+                    android:text="@string/checkbox_visited"
+                    android:onClick="onCheckboxClicked" />
+
                 <Button
                     android:id="@+id/chooseImage"
                     android:layout_width="match_parent"

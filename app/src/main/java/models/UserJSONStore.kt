@@ -8,6 +8,7 @@ import helpers.exists
 import helpers.read
 import helpers.write
 import org.jetbrains.anko.AnkoLogger
+import org.jetbrains.anko.info
 import java.util.*
 
 val UserJSON_FILE = "users.json"
@@ -49,6 +50,21 @@ class UserJSONStore: UserStore, AnkoLogger {
         else {
             return null
         }
+    }
+
+    override fun update(user: UserModel) {
+        val usersList = findAll() as ArrayList<UserModel>
+        var foundUser: UserModel? = usersList.find { p -> p.userId == user.userId }
+        if (foundUser != null) {
+            foundUser.email = user.email
+            foundUser.password = user.password
+            logAll()
+            serialize()
+        }
+    }
+
+    fun logAll() {
+        users.forEach{ info("${it}") }
     }
 
     private fun serialize() {

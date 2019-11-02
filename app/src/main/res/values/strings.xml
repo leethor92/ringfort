@@ -26,5 +26,8 @@
     <string name="hint_settingsEmail">Edit email</string>
     <string name="hint_settingsPassword">Edit password</string>
     <string name="button_save_settings">Save Changes</string>
+    <string name="checkboxRingFortVisited">checkboxRingFortVisited</string>
+    <string name="visitDate">visitDate</string>
+    <string name="checkbox_visited">Visited!</string>
 
 </resources>
