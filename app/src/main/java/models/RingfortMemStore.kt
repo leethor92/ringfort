@@ -32,6 +32,7 @@ class RingfortMemStore : RingfortStore, AnkoLogger {
             foundRingfort.lat = ringfort.lat
             foundRingfort.lng = ringfort.lng
             foundRingfort.zoom = ringfort.zoom
+            foundRingfort.visited = ringfort.visited
             logAll()
         }
     }

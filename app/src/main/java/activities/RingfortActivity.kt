@@ -64,6 +64,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
                     chooseImage.setText(R.string.change_ringfort_image)
                 }
             }
+            checkBox.isChecked = ringfort.visited
         }
 
         btnAdd.setOnClickListener() {
