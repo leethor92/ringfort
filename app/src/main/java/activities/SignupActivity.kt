@@ -5,16 +5,13 @@ import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_signup.*
 import main.MainApp
 import models.UserModel
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import org.jetbrains.anko.startActivityForResult
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 import org.wit.ringfort.R
 
 class SignupActivity  : AppCompatActivity(), AnkoLogger {
 
     lateinit var app: MainApp
-    var user = UserModel()
+    var newUser = UserModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,19 +19,29 @@ class SignupActivity  : AppCompatActivity(), AnkoLogger {
         app = application as MainApp
 
         register.setOnClickListener() {
-            user.email = email.text.toString()
-            user.password = password.text.toString()
-            if (user.email.isNotEmpty() && user.password.isNotEmpty()) {
-                if (app.users.signup(user)) {
-                    app.loginUser = user
-                    startActivityForResult<RingfortListActivity>(0)
+            val email = email.text.toString()
+            val password = password.text.toString()
+
+            val allUsers: List<UserModel> = app.users.findAll()
+
+            var foundUser: UserModel? = allUsers.find { user -> user.email == email }
+
+            if (foundUser == null) {
+                newUser.email = email
+                newUser.password = password
+
+                if (newUser.email.isNotEmpty() && newUser.password.isNotEmpty()) {
+                    app.users.create(newUser.copy())
+
+                    startActivity<RingfortListActivity>()
+                    info("Signup successful $")
+                } else {
+                    toast("Please enter both email and password")
                 }
-                else {
-                    toast("A user with this email already exists")
-                }
-            }
-            else {
-                toast("Email and password are required")
+
+
+            } else {
+                toast("Please use a different email this one is taken")
             }
         }
 

@@ -12,13 +12,13 @@ import org.wit.ringfort.R
 import main.MainApp
 import models.RingfortModel
 import models.UserModel
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.startActivityForResult
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
-class RingfortListActivity : AppCompatActivity(), RingfortListener {
+class RingfortListActivity : AppCompatActivity(), RingfortListener, AnkoLogger {
 
     lateinit var app: MainApp
+
+    var current_user = UserModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,7 +30,12 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
 
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        loadRingforts()
+
+        if (intent.hasExtra("current_user")) {
+            current_user = intent.extras?.getParcelable<UserModel>("current_user")!!
+            info("This is the logged in user: $current_user")
+            loadRingforts()
+        }
 
         toolbar.setOnClickListener{
 

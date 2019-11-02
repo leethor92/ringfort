@@ -6,10 +6,7 @@ import kotlinx.android.synthetic.main.activity_login.*
 import kotlinx.android.synthetic.main.activity_signup.*
 import main.MainApp
 import models.UserModel
-import org.jetbrains.anko.AnkoLogger
-import org.jetbrains.anko.info
-import org.jetbrains.anko.startActivityForResult
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 import org.wit.ringfort.R
 
 class LoginActivity : AppCompatActivity(), AnkoLogger {
@@ -22,13 +19,16 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
         app = application as MainApp
 
         login.setOnClickListener() {
-            var email: String = login_email.text.toString()
-            var password: String = login_password.text.toString()
+            val email: String = login_email.text.toString()
+            val password: String = login_password.text.toString()
+
             if (email.isNotEmpty() && password.isNotEmpty()) {
-                var user = app.users.login(email, password)
-                if (user != null) {
-                    app.loginUser = user
-                    startActivityForResult<RingfortListActivity>(0)
+                val allUsers: List<UserModel> = app.users.findAll()
+
+                var foundUser: UserModel? = allUsers.find { user -> user.email == email && user.password == password }
+
+                if (foundUser != null) {
+                    startActivityForResult(intentFor<RingfortListActivity>().putExtra("current_user", foundUser), 0)
                 }
                 else {
                     toast("Email or password entered was entered incorrectly")

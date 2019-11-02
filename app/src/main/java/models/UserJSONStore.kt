@@ -15,6 +15,10 @@ val UserJSON_FILE = "users.json"
 val userGsonBuilder = GsonBuilder().setPrettyPrinting().create()
 val userListType = object : TypeToken<ArrayList<UserModel>>() {}.type
 
+fun generateRandomUserId(): Long {
+    return Random().nextLong()
+}
+
 class UserJSONStore: UserStore, AnkoLogger {
 
     val context: Context
@@ -31,15 +35,19 @@ class UserJSONStore: UserStore, AnkoLogger {
         return users
     }
 
-    override fun signup(user: UserModel): Boolean {
-        var foundUser: UserModel? = users.find { p -> p.email == user.email }
-        if (foundUser == null) {
-            user.userId = generateRandomId()
-            users.add(user)
-            serialize()
-            return true
+    override fun create(user: UserModel) {
+        user.id = generateRandomUserId()
+        users.add(user)
+        serialize()
+    }
+
+    override fun update(user: UserModel) {
+        var founduser: UserModel? = users.find { u -> u.id == user.id }
+        if (founduser != null) {
+            founduser.email = user.email
+            founduser.password = user.password
         }
-        return false
+        serialize()
     }
 
     override fun login(email: String, password: String): UserModel? {
@@ -49,17 +57,6 @@ class UserJSONStore: UserStore, AnkoLogger {
         }
         else {
             return null
-        }
-    }
-
-    override fun update(user: UserModel) {
-        val usersList = findAll() as ArrayList<UserModel>
-        var foundUser: UserModel? = usersList.find { p -> p.userId == user.userId }
-        if (foundUser != null) {
-            foundUser.email = user.email
-            foundUser.password = user.password
-            logAll()
-            serialize()
         }
     }
 
