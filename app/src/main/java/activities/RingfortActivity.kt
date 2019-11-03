@@ -162,7 +162,7 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
 
                     if (checkBox.isChecked.not())
                     {
-                        ringfort.visited = true
+                        ringfort.visited = false
                         ringfort.date = "Not visited yet"
                     }
                 }

@@ -31,4 +31,6 @@
     <string name="checkbox_visited">Visited!</string>
     <string name="hint_notes">Record any additional notes</string>
     <string name="hint_date">Date Visited</string>
+    <string name="totalRingforts">Total Number of ringforts</string>
+    <string name="visitedRingorts">Number of ringforts visited</string>
 </resources>
