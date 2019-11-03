@@ -15,7 +15,7 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger {
     lateinit var app: MainApp
 
     var current_user = UserModel()
-    var  = RingfortModel()
+    var ringfort = RingfortModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -24,11 +24,11 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger {
         var size = app.ringforts.findAll().size
         var count = 0
 
-        //for(i in app.ringforts.findAll()){
-       //   (ringfort.visited = true){
-        //        count++
-        // }
-        //}
+        for(r in app.ringforts.findAll()){
+          if(r.visited){
+               count++
+         }
+        }
 
         totalRingforts.setText("Number of Ringforts: " + size)
         visitedRingforts.setText("Amount visited: " + count)
