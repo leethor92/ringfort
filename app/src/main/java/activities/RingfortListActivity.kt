@@ -52,6 +52,9 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener, AnkoLogger {
             R.id.item_add -> {
                 startActivityForResult<RingfortActivity>(0)
             }
+            R.id.item_map -> {
+                startActivity<RingfortMapsActivity>()
+            }
             R.id.item_logout -> {
                 app.loginUser = UserModel()
                 toast("Logged out")

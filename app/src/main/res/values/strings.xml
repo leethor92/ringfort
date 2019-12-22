@@ -33,4 +33,5 @@
     <string name="hint_date">Date Visited</string>
     <string name="totalRingforts">Total Number of ringforts</string>
     <string name="visitedRingorts">Number of ringforts visited</string>
+    <string name="title_activity_ringfort_maps">Map of All Ringforts </string>
 </resources>
