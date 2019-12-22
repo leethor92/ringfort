@@ -34,4 +34,7 @@
     <string name="totalRingforts">Total Number of ringforts</string>
     <string name="visitedRingorts">Number of ringforts visited</string>
     <string name="title_activity_ringfort_maps">Map of All Ringforts </string>
+    <string name="ringfort_image_placeholder">Ringfort Image</string>
+    <string name="ringfort_title_placeholder">Ringfort Title</string>
+    <string name="ringfort_description_placeholder">Ringfort Description</string>
 </resources>

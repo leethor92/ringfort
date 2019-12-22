@@ -32,6 +32,11 @@ class RingfortJSONStore : RingfortStore, AnkoLogger {
         return ringforts
     }
 
+    override fun findById(id:Long) : RingfortModel? {
+        val foundRingfort: RingfortModel? = ringforts.find { it.id == id }
+        return foundRingfort
+    }
+
     override fun create(ringfort: RingfortModel) {
         ringfort.id = generateRandomId()
         ringforts.add(ringfort)
