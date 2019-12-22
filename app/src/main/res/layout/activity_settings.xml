@@ -6,11 +6,13 @@
     android:layout_height="match_parent"
     tools:context="activities.SettingsActivity">
 
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
 
         <ScrollView
             android:layout_width="match_parent"
@@ -21,6 +23,22 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
+                <com.google.android.material.appbar.AppBarLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:fitsSystemWindows="true"
+                    app:elevation="0dip"
+                    app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                    <androidx.appcompat.widget.Toolbar
+                        android:id="@+id/toolbar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:titleTextColor="@color/colorPrimary" />
+                </com.google.android.material.appbar.AppBarLayout>
+
 
                 <EditText
                     android:id="@+id/settings_email"
@@ -85,6 +103,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="8dp"
+                    android:clickable="false"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
                     android:hint="@string/visitedRingorts"
                     android:inputType="text"
                     android:maxLength="25"
@@ -92,11 +114,7 @@
                     android:padding="8dp"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="14sp"
-                    app:layout_constraintTop_toBottomOf="@+id/totalRingforts"
-                    android:clickable="false"
-                    android:cursorVisible="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"/>
+                    app:layout_constraintTop_toBottomOf="@+id/totalRingforts" />
 
 
             </LinearLayout>
