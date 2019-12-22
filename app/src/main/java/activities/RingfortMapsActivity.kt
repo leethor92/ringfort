@@ -1,6 +1,7 @@
 package activities
 
 import android.os.Bundle
+import android.view.MenuItem
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -24,12 +25,23 @@ class RingfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort_maps)
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
         app = application as MainApp
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync {
             map = it
             configureMap()
         }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onDestroy() {
