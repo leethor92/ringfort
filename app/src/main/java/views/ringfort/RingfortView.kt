@@ -10,12 +10,14 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.google.android.gms.maps.GoogleMap
 import helpers.readImageFromPath
 import helpers.showImagePicker
 import kotlinx.android.synthetic.main.activity_ringfort.*
 import kotlinx.android.synthetic.main.activity_ringfort.description
 import kotlinx.android.synthetic.main.activity_ringfort.ringfortTitle
 import kotlinx.android.synthetic.main.card_ringfort.*
+import kotlinx.android.synthetic.main.content_ringfort_maps.*
 import main.MainApp
 import models.Location
 import org.jetbrains.anko.info
@@ -33,6 +35,7 @@ class RingfortView : BaseView(), AnkoLogger {
 
     var ringfort = RingfortModel()
     lateinit var presenter: RingfortPresenter
+    lateinit var map: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,11 @@ class RingfortView : BaseView(), AnkoLogger {
            presenter.doSetLocation()
         }
 
+        mapView2.onCreate(savedInstanceState);
+        mapView2.getMapAsync {
+            map = it
+            presenter.doConfigureMap(map)
+        }
     }
 
     override fun showRingfort(ringfort: RingfortModel) {
@@ -141,5 +149,30 @@ class RingfortView : BaseView(), AnkoLogger {
                 }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView2.onDestroy()
+    }
+
+    override fun onLowMemory() {
+        super.onLowMemory()
+        mapView2.onLowMemory()
+    }
+
+    override fun onPause() {
+        super.onPause()
+        mapView2.onPause()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        mapView2.onResume()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView2.onSaveInstanceState(outState)
     }
 }

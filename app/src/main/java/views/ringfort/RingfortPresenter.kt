@@ -2,7 +2,16 @@ package org.wit.placemark.activities
 
 import views.editlocation.EditLocationView
 import activities.RingfortView
+import android.annotation.SuppressLint
 import android.content.Intent
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.google.android.gms.maps.CameraUpdateFactory
+import com.google.android.gms.maps.GoogleMap
+import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MarkerOptions
+import helpers.checkLocationPermissions
+import helpers.isPermissionGranted
 import helpers.showImagePicker
 import main.MainApp
 import models.Location
@@ -13,6 +22,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class RingfortPresenter(view: BaseView) : BasePresenter(view) {
+
+    var map: GoogleMap? = null
+    var locationService: FusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(view)
 
     var ringfort = RingfortModel()
     var location = Location(52.245696, -7.139102, 15f)
@@ -25,7 +37,44 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
             edit = true
             ringfort = view.intent.extras?.getParcelable<RingfortModel>("ringfort_edit")!!
             view.showRingfort(ringfort)
+        } else {
+            if (checkLocationPermissions(view)) {
+                doSetCurrentLocation()
+            }
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    fun doSetCurrentLocation() {
+        locationService.lastLocation.addOnSuccessListener {
+            locationUpdate(it.latitude, it.longitude)
+        }
+    }
+
+    override fun doRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
+        if (isPermissionGranted(requestCode, grantResults)) {
+            doSetCurrentLocation()
+        } else {
+            // permissions denied, so use the default location
+            locationUpdate(location.lat, location.lng)
+        }
+    }
+
+    fun doConfigureMap(m: GoogleMap) {
+        map = m
+        locationUpdate(ringfort.lat, ringfort.lng)
+    }
+
+    fun locationUpdate(lat: Double, lng: Double) {
+        ringfort.lat = lat
+        ringfort.lng = lng
+        ringfort.zoom = 15f
+        map?.clear()
+        map?.uiSettings?.setZoomControlsEnabled(true)
+        val options = MarkerOptions().title(ringfort.title).position(LatLng(ringfort.lat, ringfort.lng))
+        map?.addMarker(options)
+        map?.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(ringfort.lat, ringfort.lng), ringfort.zoom))
+        view?.showRingfort(ringfort)
     }
 
     fun doAddOrSave(title: String, description: String, checkBox: Boolean, addNotes: String, date: String) {
@@ -66,16 +115,7 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
     }
 
     fun doSetLocation() {
-        if (edit == false) {
-            view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", location)
-        } else {
-            view?.navigateTo(
-                VIEW.LOCATION,
-                LOCATION_REQUEST,
-                "location",
-                Location(ringfort.lat, ringfort.lng, ringfort.zoom)
-            )
-        }
+        view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(ringfort.lat, ringfort.lng, ringfort.zoom))
     }
 
     override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
@@ -91,6 +131,7 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
                 ringfort.lat = location.lat
                 ringfort.lng = location.lng
                 ringfort.zoom = location.zoom
+                locationUpdate(ringfort.lat, ringfort.lng)
             }
         }
     }
