@@ -13,6 +13,9 @@ import android.widget.LinearLayout
 import helpers.readImageFromPath
 import helpers.showImagePicker
 import kotlinx.android.synthetic.main.activity_ringfort.*
+import kotlinx.android.synthetic.main.activity_ringfort.description
+import kotlinx.android.synthetic.main.activity_ringfort.ringfortTitle
+import kotlinx.android.synthetic.main.card_ringfort.*
 import main.MainApp
 import models.Location
 import org.jetbrains.anko.info
@@ -21,87 +24,64 @@ import org.jetbrains.anko.toast
 import org.wit.ringfort.R
 import models.RingfortModel
 import org.jetbrains.anko.intentFor
+import org.wit.placemark.activities.RingfortPresenter
 import java.text.SimpleDateFormat
 import java.util.*
 
 class RingfortActivity : AppCompatActivity(), AnkoLogger {
 
     var ringfort = RingfortModel()
-    lateinit var app : MainApp
-    val IMAGE_REQUEST = 1
-    val LOCATION_REQUEST = 2
+    lateinit var presenter: RingfortPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort)
-        app = application as MainApp
-        var edit = false
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        info("Placemark Activity started..")
+        presenter = RingfortPresenter(this)
 
-        if (intent.hasExtra("ringfort_edit")) {
-            edit = true
-            ringfort = intent.extras?.getParcelable<RingfortModel>("ringfort_edit")!!
-            ringfortTitle.setText(ringfort.title)
-            description.setText(ringfort.description)
-            addNotes.setText(ringfort.notes)
-            dateVisited.setText(ringfort.date)
-
-            btnAdd.setText(R.string.save_ringfort)
-            if (ringfort.images.size > 0) {
-                for (image in ringfort.images) {
-                    val imageView: ImageView = ImageView(this)
-                    var params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                        600,
-                        600
-                    )
-                    params.setMargins(0, 0, 10, 0)
-                    imageView.layoutParams = params
-                    imageView.setImageBitmap(readImageFromPath(this, image))
-                    imageGallery.addView(imageView)
-                }
-                if (ringfort.images[0] != null) {
-                    chooseImage.setText(R.string.change_ringfort_image)
-                }
-            }
-            checkBox.isChecked = ringfort.visited
-        }
-
-        btnAdd.setOnClickListener() {
-            ringfort.title = ringfortTitle.text.toString()
-            ringfort.description = description.text.toString()
-            ringfort.notes = addNotes.text.toString()
-            if (ringfort.title.isEmpty()) {
+        btnAdd.setOnClickListener {
+            if (ringfortTitle.text.toString().isEmpty()) {
                 toast(R.string.enter_ringfort_title)
             } else {
-                if (edit) {
-                    app.ringforts.update(ringfort.copy())
-                } else {
-                    app.ringforts.create(ringfort.copy())
-                }
+                presenter.doAddOrSave(ringfortTitle.text.toString(), description.text.toString(), checkBox.isChecked, addNotes.text.toString(), dateVisited.text.toString())
             }
-            info("add Button Pressed: $ringfortTitle")
-            setResult(AppCompatActivity.RESULT_OK)
-            finish()
         }
 
-        chooseImage.setOnClickListener {
-            showImagePicker(this, IMAGE_REQUEST)
-        }
+        chooseImage.setOnClickListener { presenter.doSelectImage() }
 
         ringfortLocation.setOnClickListener {
-            val location = Location(52.245696, -7.139102, 15f)
-            if (ringfort.zoom != 0f) {
-                location.lat =  ringfort.lat
-                location.lng = ringfort.lng
-                location.zoom = ringfort.zoom
-            }
-            startActivityForResult(intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
+           presenter.doSetLocation()
         }
 
+    }
+
+    fun showRingfort(ringfort: RingfortModel) {
+        ringfortTitle.setText(ringfort.title)
+        description.setText(ringfort.description)
+        addNotes.setText(ringfort.notes)
+        checkBox.isChecked = ringfort.visited
+        dateVisited.setText(ringfort.date)
+
+        if (ringfort.images.size > 0) {
+            for (image in ringfort.images) {
+                val imageView: ImageView = ImageView(this)
+                var params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                    600,
+                    600
+                )
+                params.setMargins(0, 0, 10, 0)
+                imageView.layoutParams = params
+                imageView.setImageBitmap(readImageFromPath(this, image))
+                imageGallery.addView(imageView)
+            }
+            if (ringfort.images[0] != null) {
+                chooseImage.setText(R.string.change_ringfort_image)
+            }
+        }
+        btnAdd.setText(R.string.save_ringfort)
     }
 
 
@@ -113,11 +93,11 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.item_delete -> {
-                app.ringforts.delete(ringfort)
+                presenter.doDelete()
                 finish()
             }
             R.id.item_cancel -> {
-                finish()
+                presenter.doCancel()
             }
             android.R.id.home -> {
                 finish()
@@ -129,21 +109,8 @@ class RingfortActivity : AppCompatActivity(), AnkoLogger {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            IMAGE_REQUEST -> {
-                if (data != null) {
-                    ringfort.images.add(data.getData().toString())
-                    chooseImage.setText(R.string.change_ringfort_image)
-                }
-            }
-            LOCATION_REQUEST -> {
-                if (data != null) {
-                    val location = data.extras?.getParcelable<Location>("location")!!
-                    ringfort.lat = location.lat
-                    ringfort.lng = location.lng
-                    ringfort.zoom = location.zoom
-                }
-            }
+        if (data != null) {
+            presenter.doActivityResult(requestCode, resultCode, data)
         }
     }
 
