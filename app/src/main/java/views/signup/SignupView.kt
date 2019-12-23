@@ -1,4 +1,4 @@
-package activities
+package views.signup
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -7,6 +7,7 @@ import main.MainApp
 import models.UserModel
 import org.jetbrains.anko.*
 import org.wit.ringfort.R
+import views.login.LoginView
 import views.ringfortlist.RingfortListView
 
 class SignupView  : AppCompatActivity(), AnkoLogger {

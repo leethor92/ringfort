@@ -8,23 +8,19 @@ import main.MainApp
 import models.Location
 import models.RingfortModel
 import org.jetbrains.anko.intentFor
+import views.*
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RingfortPresenter(val view: RingfortView) {
-
-    val IMAGE_REQUEST = 1
-    val LOCATION_REQUEST = 2
+class RingfortPresenter(view: BaseView) : BasePresenter(view) {
 
     var ringfort = RingfortModel()
-    var location = Location(52.245696, -7.139102, 15f)
-    var app: MainApp
+    var default_location = Location(52.245696, -7.139102, 15f)
     var edit = false;
     var formatD = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
     val currentDate = formatD.format(Date())
 
     init {
-        app = view.application as MainApp
         if (view.intent.hasExtra("ringfort_edit")) {
             edit = true
             ringfort = view.intent.extras?.getParcelable<RingfortModel>("ringfort_edit")!!
@@ -51,34 +47,38 @@ class RingfortPresenter(val view: RingfortView) {
         } else {
             app.ringforts.create(ringfort)
         }
-        view.finish()
+        view?.finish()
     }
 
 
 
     fun doCancel() {
-        view.finish()
+        view?.finish()
     }
 
     fun doDelete() {
         app.ringforts.delete(ringfort)
-        view.finish()
+        view?.finish()
     }
 
     fun doSelectImage() {
-        showImagePicker(view, IMAGE_REQUEST)
+        showImagePicker(view!!, IMAGE_REQUEST)
     }
 
     fun doSetLocation() {
-        if (ringfort.zoom != 0f) {
-            location.lat = ringfort.lat
-            location.lng = ringfort.lng
-            location.zoom = ringfort.zoom
+        if (edit == false) {
+            view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", default_location)
+        } else {
+            view?.navigateTo(
+                VIEW.LOCATION,
+                LOCATION_REQUEST,
+                "location",
+                Location(ringfort.lat, ringfort.lng, ringfort.zoom)
+            )
         }
-        view.startActivityForResult(view.intentFor<EditLocationView>().putExtra("location", location), LOCATION_REQUEST)
     }
 
-    fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         when (requestCode) {
             IMAGE_REQUEST -> {
                 if (data != null) {
@@ -87,7 +87,7 @@ class RingfortPresenter(val view: RingfortView) {
                 }
             }
             LOCATION_REQUEST -> {
-                location = data.extras?.getParcelable<Location>("location")!!
+                val location = data.extras?.getParcelable<Location>("location")!!
                 ringfort.lat = location.lat
                 ringfort.lng = location.lng
                 ringfort.zoom = location.zoom

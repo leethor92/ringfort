@@ -25,10 +25,11 @@ import org.wit.ringfort.R
 import models.RingfortModel
 import org.jetbrains.anko.intentFor
 import org.wit.placemark.activities.RingfortPresenter
+import views.BaseView
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RingfortView : AppCompatActivity(), AnkoLogger {
+class RingfortView : BaseView(), AnkoLogger {
 
     var ringfort = RingfortModel()
     lateinit var presenter: RingfortPresenter
@@ -36,6 +37,7 @@ class RingfortView : AppCompatActivity(), AnkoLogger {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort)
+
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
@@ -58,7 +60,7 @@ class RingfortView : AppCompatActivity(), AnkoLogger {
 
     }
 
-    fun showRingfort(ringfort: RingfortModel) {
+    override fun showRingfort(ringfort: RingfortModel) {
         ringfortTitle.setText(ringfort.title)
         description.setText(ringfort.description)
         addNotes.setText(ringfort.notes)

@@ -1,7 +1,7 @@
 package views.ringfortlist
 
-import activities.LoginView
-import activities.SettingsView
+import views.login.LoginView
+import views.settings.SettingsView
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
@@ -11,8 +11,9 @@ import kotlinx.android.synthetic.main.activity_ringfort_list.*
 import org.wit.ringfort.R
 import models.RingfortModel
 import org.jetbrains.anko.*
+import views.BaseView
 
-class RingfortListView : AppCompatActivity(), RingfortListener {
+class RingfortListView :  BaseView(), RingfortListener {
 
     lateinit var presenter: RingfortListPresenter
 
@@ -24,10 +25,14 @@ class RingfortListView : AppCompatActivity(), RingfortListener {
         setSupportActionBar(toolbar)
 
         presenter = RingfortListPresenter(this)
+
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-        recyclerView.adapter =
-            RingfortAdapter(presenter.getRingforts(), this)
+        presenter.loadRingforts()
+    }
+
+    override fun showRingforts(ringforts: List<RingfortModel>) {
+        recyclerView.adapter = RingfortAdapter(ringforts, this)
         recyclerView.adapter?.notifyDataSetChanged()
     }
 
@@ -67,7 +72,7 @@ class RingfortListView : AppCompatActivity(), RingfortListener {
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        recyclerView.adapter?.notifyDataSetChanged()
+        presenter.loadRingforts()
         super.onActivityResult(requestCode, resultCode, data)
     }
 }

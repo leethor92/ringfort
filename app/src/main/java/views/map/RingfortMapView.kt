@@ -13,23 +13,40 @@ import helpers.readImageFromPath
 import kotlinx.android.synthetic.main.activity_ringfort_maps.*
 import kotlinx.android.synthetic.main.content_ringfort_maps.*
 import main.MainApp
+import models.RingfortModel
 import org.wit.ringfort.R
+import views.BaseView
 
-class RingfortMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
+class RingfortMapView :  BaseView(), GoogleMap.OnMarkerClickListener {
 
     lateinit var presenter: RingfortMapPresenter
+    lateinit var map : GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort_maps)
-        setSupportActionBar(toolbar)
+        super.init(toolbar)
+
+        presenter = initPresenter (RingfortMapPresenter(this)) as RingfortMapPresenter
+
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        presenter = RingfortMapPresenter(this)
 
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync {
-            presenter.doPopulateMap(it)
+            map = it
+            map.setOnMarkerClickListener(this)
+            presenter.loadRingforts()
         }
+    }
+
+    override fun showRingfort(ringfort: RingfortModel) {
+        currentTitle.text = ringfort.title
+        currentDescription.text = ringfort.description
+        currentImage.setImageBitmap(readImageFromPath(this, ringfort.images[0]))
+    }
+
+    override fun showRingforts(ringforts: List<RingfortModel>) {
+        presenter.doPopulateMap(map, ringforts)
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
@@ -42,16 +59,16 @@ class RingfortMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
         return super.onOptionsItemSelected(item)
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        mapView.onDestroy()
-    }
-
     override fun onMarkerClick(marker: Marker): Boolean {
         presenter.doMarkerSelected(marker)
         return true
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        mapView.onDestroy()
+    }
+    
     override fun onLowMemory() {
         super.onLowMemory()
         mapView.onLowMemory()

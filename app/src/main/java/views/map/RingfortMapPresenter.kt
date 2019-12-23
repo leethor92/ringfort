@@ -8,19 +8,15 @@ import com.google.android.gms.maps.model.MarkerOptions
 import helpers.readImageFromPath
 import kotlinx.android.synthetic.main.content_ringfort_maps.*
 import main.MainApp
+import models.RingfortModel
+import views.BasePresenter
+import views.BaseView
 
-class RingfortMapPresenter(val view: RingfortMapView){
+class RingfortMapPresenter(view: BaseView) : BasePresenter(view){
 
-    var app: MainApp
-
-    init{
-        app = view.application as MainApp
-    }
-
-    fun doPopulateMap(map: GoogleMap){
+    fun doPopulateMap(map: GoogleMap, ringforts: List<RingfortModel>){
         map.uiSettings.setZoomControlsEnabled(true)
-        map.setOnMarkerClickListener(view)
-        app.ringforts.findAll().forEach {
+        ringforts.forEach {
             val loc = LatLng(it.lat, it.lng)
             val options = MarkerOptions().title(it.title).position(loc)
             map.addMarker(options).tag = it.id
@@ -31,10 +27,10 @@ class RingfortMapPresenter(val view: RingfortMapView){
     fun doMarkerSelected(marker: Marker){
         val tag = marker.tag as Long
         val ringfort = app.ringforts.findById(tag)
-        view.currentTitle.text = ringfort!!.title
-        view.currentDescription.text = ringfort!!.description
-        if (ringfort.images.size > 0) {
-            view.currentImage.setImageBitmap(readImageFromPath(view.applicationContext, ringfort.images[0]))
-        }
+        if (ringfort != null) view?.showRingfort(ringfort)
+    }
+
+    fun loadRingforts() {
+        view?.showRingforts(app.ringforts.findAll())
     }
 }
