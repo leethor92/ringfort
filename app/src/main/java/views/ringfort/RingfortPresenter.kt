@@ -15,7 +15,7 @@ import java.util.*
 class RingfortPresenter(view: BaseView) : BasePresenter(view) {
 
     var ringfort = RingfortModel()
-    var default_location = Location(52.245696, -7.139102, 15f)
+    var location = Location(52.245696, -7.139102, 15f)
     var edit = false;
     var formatD = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
     val currentDate = formatD.format(Date())
@@ -67,7 +67,7 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
 
     fun doSetLocation() {
         if (edit == false) {
-            view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", default_location)
+            view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", location)
         } else {
             view?.navigateTo(
                 VIEW.LOCATION,

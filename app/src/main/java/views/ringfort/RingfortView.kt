@@ -116,6 +116,10 @@ class RingfortView : BaseView(), AnkoLogger {
         }
     }
 
+    override fun onBackPressed() {
+        presenter.doCancel()
+    }
+
     fun onCheckboxClicked(view: View) {
         if (view is CheckBox) {
             when (view.id) {
