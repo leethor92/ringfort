@@ -13,34 +13,27 @@ import main.MainApp
 import models.RingfortModel
 import models.UserModel
 import org.jetbrains.anko.*
+import org.wit.placemark.activities.RingfortListPresenter
 
-class RingfortListActivity : AppCompatActivity(), RingfortListener, AnkoLogger {
+class RingfortListActivity : AppCompatActivity(), RingfortListener {
 
-    lateinit var app: MainApp
+    lateinit var presenter: RingfortListPresenter
 
-    var current_user = UserModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort_list)
-        app = application as MainApp
-
         toolbar.title = title
         setSupportActionBar(toolbar)
 
+        presenter = RingfortListPresenter(this)
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
-
-        if (intent.hasExtra("current_user")) {
-            current_user = intent.extras?.getParcelable<UserModel>("current_user")!!
-            info("This is the logged in user: $current_user")
-            loadRingforts()
-        }
-
-        toolbar.setOnClickListener{
-
-        }
+        recyclerView.adapter =
+            RingfortAdapter(presenter.getRingforts(), this)
+        recyclerView.adapter?.notifyDataSetChanged()
     }
+
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
@@ -50,19 +43,19 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener, AnkoLogger {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.item_add -> {
-                startActivityForResult<RingfortActivity>(0)
+                presenter.doAddRingfort()
             }
             R.id.item_map -> {
-                startActivity<RingfortMapsActivity>()
+                presenter.doShowRingfortsMap()
             }
             R.id.item_logout -> {
-                app.loginUser = UserModel()
+                //app.loginUser = UserModel()
                 toast("Logged out")
                 startActivityForResult<LoginActivity>(0)
                 finish()
             }
             R.id.item_settings -> {
-                app.loginUser = UserModel()
+                //app.loginUser = UserModel()
                 toast("Viewing Settings")
                 startActivityForResult<SettingsActivity>(0)
                 finish()
@@ -73,20 +66,11 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener, AnkoLogger {
     }
 
     override fun onRingfortClick(ringfort: RingfortModel) {
-        startActivityForResult(intentFor<RingfortActivity>().putExtra("ringfort_edit", ringfort), 0)
+        presenter.doEditRingfort(ringfort)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        loadRingforts()
-        super.onActivityResult(requestCode, resultCode, data)
-    }
-
-    private fun loadRingforts() {
-        showRingforts(app.ringforts.findAll())
-    }
-
-    fun showRingforts (ringforts: List<RingfortModel>) {
-        recyclerView.adapter = RingfortAdapter(ringforts, this)
         recyclerView.adapter?.notifyDataSetChanged()
+        super.onActivityResult(requestCode, resultCode, data)
     }
 }
