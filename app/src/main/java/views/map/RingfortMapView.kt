@@ -1,8 +1,7 @@
-package activities
+package views.map
 
 import android.os.Bundle
 import android.view.MenuItem
-import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -16,21 +15,20 @@ import kotlinx.android.synthetic.main.content_ringfort_maps.*
 import main.MainApp
 import org.wit.ringfort.R
 
-class RingfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
+class RingfortMapView : AppCompatActivity(), GoogleMap.OnMarkerClickListener {
 
-    lateinit var map: GoogleMap
-    lateinit var app: MainApp
+    lateinit var presenter: RingfortMapPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort_maps)
         setSupportActionBar(toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        app = application as MainApp
+        presenter = RingfortMapPresenter(this)
+
         mapView.onCreate(savedInstanceState);
         mapView.getMapAsync {
-            map = it
-            configureMap()
+            presenter.doPopulateMap(it)
         }
     }
 
@@ -50,13 +48,7 @@ class RingfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
     }
 
     override fun onMarkerClick(marker: Marker): Boolean {
-        val tag = marker.tag as Long
-        val ringfort = app.ringforts.findById(tag)
-        currentTitle.text = ringfort!!.title
-        currentDescription.text = ringfort!!.description
-        if (ringfort.images.size > 0) {
-            currentImage.setImageBitmap(readImageFromPath(this, ringfort.images[0]))
-        }
+        presenter.doMarkerSelected(marker)
         return true
     }
 
@@ -73,17 +65,6 @@ class RingfortMapsActivity : AppCompatActivity(), GoogleMap.OnMarkerClickListene
     override fun onResume() {
         super.onResume()
         mapView.onResume()
-    }
-
-    fun configureMap() {
-        map.uiSettings.setZoomControlsEnabled(true)
-        app.ringforts.findAll().forEach {
-            val loc = LatLng(it.lat, it.lng)
-            val options = MarkerOptions().title(it.title).position(loc)
-            map.addMarker(options).tag = it.id
-            map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
-            map.setOnMarkerClickListener(this)
-        }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

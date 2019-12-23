@@ -28,7 +28,7 @@ import org.wit.placemark.activities.RingfortPresenter
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RingfortActivity : AppCompatActivity(), AnkoLogger {
+class RingfortView : AppCompatActivity(), AnkoLogger {
 
     var ringfort = RingfortModel()
     lateinit var presenter: RingfortPresenter

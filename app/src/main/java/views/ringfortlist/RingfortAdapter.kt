@@ -1,4 +1,4 @@
-package activities
+package views.ringfortlist
 
 import android.view.LayoutInflater
 import android.view.View

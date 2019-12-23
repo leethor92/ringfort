@@ -1,4 +1,4 @@
-package activities
+package views.editlocation
 
 import android.app.Activity
 import android.content.Intent
@@ -9,7 +9,7 @@ import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import models.Location
 
-class MapPresenter(val view: MapActivity) {
+class MapPresenter(val view: EditLocationView) {
 
     var location = Location()
 

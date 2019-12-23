@@ -1,21 +1,18 @@
-package activities
+package views.ringfortlist
 
+import activities.LoginView
+import activities.SettingsView
 import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_ringfort_list.*
-import kotlinx.android.synthetic.main.card_ringfort.view.*
 import org.wit.ringfort.R
-import main.MainApp
 import models.RingfortModel
-import models.UserModel
 import org.jetbrains.anko.*
-import org.wit.placemark.activities.RingfortListPresenter
 
-class RingfortListActivity : AppCompatActivity(), RingfortListener {
+class RingfortListView : AppCompatActivity(), RingfortListener {
 
     lateinit var presenter: RingfortListPresenter
 
@@ -51,13 +48,13 @@ class RingfortListActivity : AppCompatActivity(), RingfortListener {
             R.id.item_logout -> {
                 //app.loginUser = UserModel()
                 toast("Logged out")
-                startActivityForResult<LoginActivity>(0)
+                startActivityForResult<LoginView>(0)
                 finish()
             }
             R.id.item_settings -> {
                 //app.loginUser = UserModel()
                 toast("Viewing Settings")
-                startActivityForResult<SettingsActivity>(0)
+                startActivityForResult<SettingsView>(0)
                 finish()
             }
 

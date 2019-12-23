@@ -3,13 +3,13 @@ package activities
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_signup.*
 import main.MainApp
 import models.UserModel
 import org.jetbrains.anko.*
 import org.wit.ringfort.R
+import views.ringfortlist.RingfortListView
 
-class LoginActivity : AppCompatActivity(), AnkoLogger {
+class LoginView : AppCompatActivity(), AnkoLogger {
 
     lateinit var app: MainApp
 
@@ -28,7 +28,7 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
                 var foundUser: UserModel? = allUsers.find { user -> user.email == email && user.password == password }
 
                 if (foundUser != null) {
-                    startActivityForResult(intentFor<RingfortListActivity>().putExtra("current_user", foundUser), 0)
+                    startActivityForResult(intentFor<RingfortListView>().putExtra("current_user", foundUser), 0)
                 }
                 else {
                     toast("Email or password entered was entered incorrectly")
@@ -40,7 +40,7 @@ class LoginActivity : AppCompatActivity(), AnkoLogger {
         }
 
         login_register.setOnClickListener() {
-            startActivityForResult<SignupActivity>(0)
+            startActivityForResult<SignupView>(0)
         }
     }
 }

@@ -3,15 +3,15 @@ package activities
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_ringfort.*
 import kotlinx.android.synthetic.main.activity_settings.*
 import main.MainApp
 import models.RingfortModel
 import models.UserModel
 import org.jetbrains.anko.*
 import org.wit.ringfort.R
+import views.ringfortlist.RingfortListView
 
-class SettingsActivity : AppCompatActivity(), AnkoLogger {
+class SettingsView : AppCompatActivity(), AnkoLogger {
 
     lateinit var app: MainApp
 
@@ -52,7 +52,7 @@ class SettingsActivity : AppCompatActivity(), AnkoLogger {
 
                 app.users.update(current_user.copy())
 
-                startActivityForResult(intentFor<RingfortListActivity>().putExtra("user", current_user), 0)
+                startActivityForResult(intentFor<RingfortListView>().putExtra("user", current_user), 0)
                 finish()
 
             } else {

@@ -7,8 +7,9 @@ import main.MainApp
 import models.UserModel
 import org.jetbrains.anko.*
 import org.wit.ringfort.R
+import views.ringfortlist.RingfortListView
 
-class SignupActivity  : AppCompatActivity(), AnkoLogger {
+class SignupView  : AppCompatActivity(), AnkoLogger {
 
     lateinit var app: MainApp
     var newUser = UserModel()
@@ -33,7 +34,7 @@ class SignupActivity  : AppCompatActivity(), AnkoLogger {
                 if (newUser.email.isNotEmpty() && newUser.password.isNotEmpty()) {
                     app.users.create(newUser.copy())
 
-                    startActivity<RingfortListActivity>()
+                    startActivity<RingfortListView>()
                     info("Signup successful $")
                 } else {
                     toast("Please enter both email and password")
@@ -46,7 +47,7 @@ class SignupActivity  : AppCompatActivity(), AnkoLogger {
         }
 
         register_login.setOnClickListener() {
-            startActivityForResult<LoginActivity>(0)
+            startActivityForResult<LoginView>(0)
         }
     }
 }

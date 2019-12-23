@@ -1,25 +1,17 @@
 package org.wit.placemark.activities
 
-import activities.MapActivity
-import activities.RingfortActivity
+import views.editlocation.EditLocationView
+import activities.RingfortView
 import android.content.Intent
-import android.view.View
-import android.widget.CheckBox
-import android.widget.ImageView
-import android.widget.LinearLayout
-import helpers.readImageFromPath
 import helpers.showImagePicker
-import kotlinx.android.synthetic.main.activity_ringfort.*
 import main.MainApp
 import models.Location
 import models.RingfortModel
-import org.jetbrains.anko.info
 import org.jetbrains.anko.intentFor
-import org.wit.ringfort.R
 import java.text.SimpleDateFormat
 import java.util.*
 
-class RingfortPresenter(val view: RingfortActivity) {
+class RingfortPresenter(val view: RingfortView) {
 
     val IMAGE_REQUEST = 1
     val LOCATION_REQUEST = 2
@@ -83,7 +75,7 @@ class RingfortPresenter(val view: RingfortActivity) {
             location.lng = ringfort.lng
             location.zoom = ringfort.zoom
         }
-        view.startActivityForResult(view.intentFor<MapActivity>().putExtra("location", location), LOCATION_REQUEST)
+        view.startActivityForResult(view.intentFor<EditLocationView>().putExtra("location", location), LOCATION_REQUEST)
     }
 
     fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
