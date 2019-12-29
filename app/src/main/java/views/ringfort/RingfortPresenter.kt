@@ -5,12 +5,15 @@ import activities.RingfortView
 import android.annotation.SuppressLint
 import android.content.Intent
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import helpers.checkLocationPermissions
+import helpers.createDefaultLocationRequest
 import helpers.isPermissionGranted
 import helpers.showImagePicker
 import main.MainApp
@@ -31,6 +34,7 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
     var edit = false;
     var formatD = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
     val currentDate = formatD.format(Date())
+    val locationRequest = createDefaultLocationRequest()
 
     init {
         if (view.intent.hasExtra("ringfort_edit")) {
@@ -133,6 +137,21 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
                 ringfort.zoom = location.zoom
                 locationUpdate(ringfort.lat, ringfort.lng)
             }
+        }
+    }
+
+    @SuppressLint("MissingPermission")
+    fun doResartLocationUpdates() {
+        var locationCallback = object : LocationCallback() {
+            override fun onLocationResult(locationResult: LocationResult?) {
+                if (locationResult != null && locationResult.locations != null) {
+                    val l = locationResult.locations.last()
+                    locationUpdate(l.latitude, l.longitude)
+                }
+            }
+        }
+        if (!edit) {
+            locationService.requestLocationUpdates(locationRequest, locationCallback, null)
         }
     }
 }

@@ -37,4 +37,5 @@
     <string name="ringfort_image_placeholder">Ringfort Image</string>
     <string name="ringfort_title_placeholder">Ringfort Title</string>
     <string name="ringfort_description_placeholder">Ringfort Description</string>
+    <string name="menu_saveRingfort">Save</string>
 </resources>

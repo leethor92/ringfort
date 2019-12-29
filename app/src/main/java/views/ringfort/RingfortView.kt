@@ -41,30 +41,27 @@ class RingfortView : BaseView(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort)
 
+        init(toolbarAdd)
+
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         presenter = RingfortPresenter(this)
 
-        btnAdd.setOnClickListener {
-            if (ringfortTitle.text.toString().isEmpty()) {
-                toast(R.string.enter_ringfort_title)
-            } else {
-                presenter.doAddOrSave(ringfortTitle.text.toString(), description.text.toString(), checkBox.isChecked, addNotes.text.toString(), dateVisited.text.toString())
-            }
-        }
+        //presenter.doAddOrSave(ringfortTitle.text.toString(), description.text.toString(), checkBox.isChecked, addNotes.text.toString(), dateVisited.text.toString())
 
         chooseImage.setOnClickListener { presenter.doSelectImage() }
 
-        ringfortLocation.setOnClickListener {
-           presenter.doSetLocation()
-        }
+        //ringfortLocation.setOnClickListener {
+        //   presenter.doSetLocation()
+        //}
 
         mapView2.onCreate(savedInstanceState);
+
         mapView2.getMapAsync {
-            map = it
-            presenter.doConfigureMap(map)
+            presenter.doConfigureMap(it)
+            it.setOnMapClickListener { presenter.doSetLocation() }
         }
     }
 
@@ -91,7 +88,9 @@ class RingfortView : BaseView(), AnkoLogger {
                 chooseImage.setText(R.string.change_ringfort_image)
             }
         }
-        btnAdd.setText(R.string.save_ringfort)
+
+        lat.setText("%.6f".format(ringfort.lat))
+        lng.setText("%.6f".format(ringfort.lng))
     }
 
 
@@ -102,6 +101,13 @@ class RingfortView : BaseView(), AnkoLogger {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
+            R.id.item_save -> {
+                if (ringfortTitle.text.toString().isEmpty()) {
+                    toast("Enter a title")
+                } else {
+                    presenter.doAddOrSave(ringfortTitle.text.toString(), description.text.toString(), checkBox.isChecked, addNotes.text.toString(), dateVisited.text.toString())
+                }
+            }
             R.id.item_delete -> {
                 presenter.doDelete()
                 finish()
@@ -169,6 +175,7 @@ class RingfortView : BaseView(), AnkoLogger {
     override fun onResume() {
         super.onResume()
         mapView2.onResume()
+        presenter.doResartLocationUpdates()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
