@@ -41,9 +41,10 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
         return presenter
     }
 
-    fun init(toolbar: Toolbar) {
+    fun init(toolbar: Toolbar, upEnabled: Boolean) {
         toolbar.title = title
         setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(upEnabled)
     }
 
     override fun onDestroy() {
@@ -65,6 +66,7 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
 
     open fun showRingfort(ringfort: RingfortModel) {}
     open fun showRingforts(ringforts: List<RingfortModel>) {}
+    open fun showLocation(latitude : Double, longitude : Double) {}
     open fun showProgress() {}
     open fun hideProgress() {}
 }

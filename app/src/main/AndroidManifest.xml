@@ -27,7 +27,8 @@
         <activity
             android:name="activities.RingfortView"
             android:parentActivityName="views.ringfortlist.RingfortListView" />
-        <activity android:name="views.ringfortlist.RingfortListView" />
+        <activity android:name="views.ringfortlist.RingfortListView"
+            android:parentActivityName="views.ringfortlist.RingfortListView" />
         <activity android:name="views.login.LoginView" />
         <activity android:name="views.settings.SettingsView" />
         <activity android:name="views.signup.SignupView">

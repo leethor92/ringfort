@@ -2,6 +2,7 @@ package main
 
 import android.app.Application
 import models.*
+import models.json.RingfortJSONStore
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 import org.wit.ringfort.R

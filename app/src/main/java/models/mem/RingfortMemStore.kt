@@ -1,5 +1,7 @@
-package models
+package models.mem
 
+import models.RingfortModel
+import models.RingfortStore
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.info
 

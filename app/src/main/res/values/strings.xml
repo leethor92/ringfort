@@ -38,4 +38,7 @@
     <string name="ringfort_title_placeholder">Ringfort Title</string>
     <string name="ringfort_description_placeholder">Ringfort Description</string>
     <string name="menu_saveRingfort">Save</string>
+    <string name="title_activity_ringfort_list">Ringforts</string>
+    <string name="title_activity_ringfort">Ringfort</string>
+    <string name="title_activity_edit_location">Ringfort</string>
 </resources>

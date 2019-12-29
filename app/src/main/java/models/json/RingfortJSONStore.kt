@@ -1,4 +1,4 @@
-package models
+package models.json
 
 import android.content.Context
 import com.google.gson.Gson
@@ -6,6 +6,8 @@ import com.google.gson.GsonBuilder
 import com.google.gson.reflect.TypeToken
 import org.jetbrains.anko.AnkoLogger
 import helpers.*
+import models.RingfortModel
+import models.RingfortStore
 import java.util.*
 
 val JSON_FILE = "ringforts.json"

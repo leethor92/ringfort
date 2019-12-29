@@ -41,7 +41,7 @@ class RingfortView : BaseView(), AnkoLogger {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort)
 
-        init(toolbarAdd)
+        init(toolbarAdd, true)
 
         toolbarAdd.title = title
         setSupportActionBar(toolbarAdd)

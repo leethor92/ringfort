@@ -25,7 +25,7 @@ class RingfortMapView :  BaseView(), GoogleMap.OnMarkerClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort_maps)
-        super.init(toolbar)
+        super.init(toolbar, true)
 
         presenter = initPresenter (RingfortMapPresenter(this)) as RingfortMapPresenter
 
