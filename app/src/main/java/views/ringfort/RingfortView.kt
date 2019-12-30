@@ -175,7 +175,7 @@ class RingfortView : BaseView(), AnkoLogger {
     override fun onResume() {
         super.onResume()
         mapView2.onResume()
-        presenter.doResartLocationUpdates()
+        //presenter.doResartLocationUpdates()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

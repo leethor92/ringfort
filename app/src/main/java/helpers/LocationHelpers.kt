@@ -38,8 +38,6 @@ fun isPermissionGranted(code: Int, grantResults: IntArray): Boolean {
 @SuppressLint("RestrictedApi")
 fun createDefaultLocationRequest() : LocationRequest {
     val locationRequest = LocationRequest().apply {
-        interval = 10000
-        fastestInterval = 5000
         priority = LocationRequest.PRIORITY_HIGH_ACCURACY
     }
     return locationRequest
