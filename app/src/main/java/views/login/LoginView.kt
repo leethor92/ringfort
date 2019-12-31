@@ -1,47 +1,45 @@
 package views.login
 
-import views.signup.SignupView
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import kotlinx.android.synthetic.main.activity_login.*
-import main.MainApp
-import models.UserModel
-import org.jetbrains.anko.*
+import kotlinx.android.synthetic.main.activity_ringfort_list.*
+import kotlinx.android.synthetic.main.activity_ringfort_list.toolbar
+import org.jetbrains.anko.toast
 import org.wit.ringfort.R
-import views.ringfortlist.RingfortListView
+import views.BaseView
 
-class LoginView : AppCompatActivity(), AnkoLogger {
 
-    lateinit var app: MainApp
+class LoginView : BaseView() {
+
+    lateinit var presenter: LoginPresenter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
-        app = application as MainApp
+        init(toolbar, false)
 
-        login.setOnClickListener() {
-            val email: String = login_email.text.toString()
-            val password: String = login_password.text.toString()
+        presenter = initPresenter(LoginPresenter(this)) as LoginPresenter
 
-            if (email.isNotEmpty() && password.isNotEmpty()) {
-                val allUsers: List<UserModel> = app.users.findAll()
-
-                var foundUser: UserModel? = allUsers.find { user -> user.email == email && user.password == password }
-
-                if (foundUser != null) {
-                    startActivityForResult(intentFor<RingfortListView>().putExtra("current_user", foundUser), 0)
-                }
-                else {
-                    toast("Email or password entered was entered incorrectly")
-                }
+        signUp.setOnClickListener {
+            val email = email.text.toString()
+            val password = password.text.toString()
+            if (email == "" || password == "") {
+                toast("Please provide email + password")
             }
             else {
-                toast("Email and password are required")
+                presenter.doSignUp(email,password)
             }
         }
 
-        login_register.setOnClickListener() {
-            startActivityForResult<SignupView>(0)
+        logIn.setOnClickListener {
+            val email = email.text.toString()
+            val password = password.text.toString()
+            if (email == "" || password == "") {
+                toast("Please provide email + password")
+            }
+            else {
+                presenter.doLogin(email,password)
+            }
         }
     }
 }

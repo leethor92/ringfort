@@ -34,4 +34,13 @@ class RingfortListPresenter(view: BaseView) : BasePresenter(view) {
             }
         }
     }
+
+    fun doLogout() {
+        view?.navigateTo(VIEW.LOGIN)
+    }
+
+    fun doSettings() {
+        view?.navigateTo(VIEW.SETTINGS)
+    }
+
 }

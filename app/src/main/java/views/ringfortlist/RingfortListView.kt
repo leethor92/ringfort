@@ -44,25 +44,10 @@ class RingfortListView :  BaseView(), RingfortListener {
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
-            R.id.item_add -> {
-                presenter.doAddRingfort()
-            }
-            R.id.item_map -> {
-                presenter.doShowRingfortsMap()
-            }
-            R.id.item_logout -> {
-                //app.loginUser = UserModel()
-                toast("Logged out")
-                startActivityForResult<LoginView>(0)
-                finish()
-            }
-            R.id.item_settings -> {
-                //app.loginUser = UserModel()
-                toast("Viewing Settings")
-                startActivityForResult<SettingsView>(0)
-                finish()
-            }
-
+            R.id.item_add -> presenter.doAddRingfort()
+            R.id.item_map -> presenter.doShowRingfortsMap()
+            R.id.item_logout ->presenter.doLogout()
+            R.id.item_settings ->presenter.doSettings()
         }
         return super.onOptionsItemSelected(item)
     }

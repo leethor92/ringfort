@@ -8,14 +8,16 @@ import androidx.appcompat.widget.Toolbar
 import models.RingfortModel
 import org.jetbrains.anko.AnkoLogger
 import views.editlocation.EditLocationView
+import views.login.LoginView
 import views.map.RingfortMapView
 import views.ringfortlist.RingfortListView
+import views.settings.SettingsView
 
 val IMAGE_REQUEST = 1
 val LOCATION_REQUEST = 2
 
 enum class VIEW {
-    LOCATION, RINGFORT, MAPS, LIST
+    LOCATION, RINGFORT, MAPS, LIST, LOGIN, SETTINGS
 }
 
 open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
@@ -29,6 +31,8 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
             VIEW.RINGFORT -> intent = Intent(this, RingfortView::class.java)
             VIEW.MAPS -> intent = Intent(this, RingfortMapView::class.java)
             VIEW.LIST -> intent = Intent(this, RingfortListView::class.java)
+            VIEW.LOGIN -> intent = Intent(this, LoginView::class.java)
+            VIEW.SETTINGS -> intent = Intent(this, SettingsView::class.java)
         }
         if (key != "") {
             intent.putExtra(key, value)
