@@ -2,7 +2,10 @@ package views.settings
 
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import kotlinx.android.synthetic.main.activity_settings.*
 import main.MainApp
 import models.RingfortModel
@@ -15,7 +18,7 @@ class SettingsView : AppCompatActivity(), AnkoLogger {
 
     lateinit var app: MainApp
 
-    var current_user = UserModel()
+    var current_user = FirebaseAuth.getInstance().currentUser
     var ringfort = RingfortModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,31 +44,27 @@ class SettingsView : AppCompatActivity(), AnkoLogger {
             }
         }
 
-
-
-        if (intent.hasExtra("current_user")) {
-            current_user = intent.extras?.getParcelable<UserModel>("current_user")!!
-            settings_email.setText(current_user.email)
-            settings_password.setText(current_user.password)
-            info("This is the logged in user: $current_user")
-        }
-
         save_settings.setOnClickListener {
-            current_user.email = settings_email.text.toString()
-            current_user.password = settings_password.text.toString()
-
-            if (current_user.email.isNotEmpty() && current_user.password.isNotEmpty()) {
-
-                app.users.update(current_user.copy())
-
-                startActivityForResult(intentFor<RingfortListView>().putExtra("user", current_user), 0)
-                finish()
-
-            } else {
-                toast("Enter email or password")
+            if (settings_password.text.isNotEmpty()) {
+                val currentUser = FirebaseAuth.getInstance().currentUser
+                currentUser?.updatePassword(settings_password.text.toString())
+                    ?.addOnCompleteListener { task ->
+                        if (task.isSuccessful) {
+                            Toast.makeText(
+                                app.applicationContext,
+                                "User Password Updated",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                app.applicationContext,
+                                "Please Enter a Valid Password",
+                                Toast.LENGTH_LONG
+                            ).show()
+                        }
+                    }
             }
         }
-
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
