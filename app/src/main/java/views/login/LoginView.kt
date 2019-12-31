@@ -18,7 +18,6 @@ class LoginView : BaseView() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
         progressBar.visibility = View.GONE
-        init(toolbar, false)
 
         presenter = initPresenter(LoginPresenter(this)) as LoginPresenter
 

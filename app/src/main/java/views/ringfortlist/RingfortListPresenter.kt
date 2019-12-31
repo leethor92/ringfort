@@ -1,6 +1,7 @@
 package views.ringfortlist
 
 import activities.RingfortView
+import com.google.firebase.auth.FirebaseAuth
 import views.map.RingfortMapView
 import main.MainApp
 import models.RingfortModel
@@ -36,6 +37,7 @@ class RingfortListPresenter(view: BaseView) : BasePresenter(view) {
     }
 
     fun doLogout() {
+        FirebaseAuth.getInstance().signOut()
         view?.navigateTo(VIEW.LOGIN)
     }
 

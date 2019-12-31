@@ -21,8 +21,7 @@ class RingfortListView :  BaseView(), RingfortListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort_list)
-        toolbar.title = title
-        setSupportActionBar(toolbar)
+        super.init(toolbar, false);
 
         presenter = RingfortListPresenter(this)
 
