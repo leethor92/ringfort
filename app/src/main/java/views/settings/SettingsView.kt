@@ -25,17 +25,23 @@ class SettingsView : AppCompatActivity(), AnkoLogger {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
         app = application as MainApp
-        var size = app.ringforts.findAll().size
-        var count = 0
 
-        for(r in app.ringforts.findAll()){
-          if(r.visited){
-               count++
-         }
+        doAsync {
+            var size = app.ringforts.findAll().size
+            var count = 0
+
+            for (r in app.ringforts.findAll()) {
+                if (r.visited) {
+                    count++
+                }
+            }
+            uiThread {
+                totalRingforts.setText("Number of Ringforts: " + size)
+                visitedRingforts.setText("Amount visited: " + count)
+            }
         }
 
-        totalRingforts.setText("Number of Ringforts: " + size)
-        visitedRingforts.setText("Amount visited: " + count)
+
 
         if (intent.hasExtra("current_user")) {
             current_user = intent.extras?.getParcelable<UserModel>("current_user")!!
