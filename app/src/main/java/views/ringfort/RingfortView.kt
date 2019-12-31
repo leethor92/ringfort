@@ -72,21 +72,9 @@ class RingfortView : BaseView(), AnkoLogger {
         checkBox.isChecked = ringfort.visited
         dateVisited.setText(ringfort.date)
 
-        if (ringfort.images.size > 0) {
-            for (image in ringfort.images) {
-                val imageView: ImageView = ImageView(this)
-                var params: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                    600,
-                    600
-                )
-                params.setMargins(0, 0, 10, 0)
-                imageView.layoutParams = params
-                imageView.setImageBitmap(readImageFromPath(this, image))
-                imageGallery.addView(imageView)
-            }
-            if (ringfort.images[0] != null) {
-                chooseImage.setText(R.string.change_ringfort_image)
-            }
+        ringfortImage.setImageBitmap(readImageFromPath(this, ringfort.image))
+        if (ringfort.image != null) {
+            chooseImage.setText(R.string.change_ringfort_image)
         }
 
         lat.setText("%.6f".format(ringfort.lat))

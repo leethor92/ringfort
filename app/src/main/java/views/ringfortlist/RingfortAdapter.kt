@@ -39,9 +39,7 @@ class RingfortAdapter constructor(
         fun bind(ringfort: RingfortModel, listener: RingfortListener) {
             itemView.ringfortTitle.text = ringfort.title
             itemView.description.text = ringfort.description
-            if (ringfort.images.size > 0){
-                itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, ringfort.images[0]))
-            }
+            itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, ringfort.image))
             itemView.setOnClickListener { listener.onRingfortClick(ringfort) }
         }
     }

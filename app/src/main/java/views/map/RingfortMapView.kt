@@ -42,7 +42,7 @@ class RingfortMapView :  BaseView(), GoogleMap.OnMarkerClickListener {
     override fun showRingfort(ringfort: RingfortModel) {
         currentTitle.text = ringfort.title
         currentDescription.text = ringfort.description
-        currentImage.setImageBitmap(readImageFromPath(this, ringfort.images[0]))
+        currentImage.setImageBitmap(readImageFromPath(this, ringfort.image))
     }
 
     override fun showRingforts(ringforts: List<RingfortModel>) {

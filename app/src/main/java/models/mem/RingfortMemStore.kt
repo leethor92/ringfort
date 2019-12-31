@@ -35,7 +35,7 @@ class RingfortMemStore : RingfortStore, AnkoLogger {
         if (foundRingfort != null) {
             foundRingfort.title = ringfort.title
             foundRingfort.description = ringfort.description
-            foundRingfort.images[0] = ringfort.images[0]
+            foundRingfort.image = ringfort.image
             foundRingfort.lat = ringfort.lat
             foundRingfort.lng = ringfort.lng
             foundRingfort.zoom = ringfort.zoom

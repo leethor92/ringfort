@@ -115,20 +115,21 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
     }
 
     fun doSelectImage() {
-        showImagePicker(view!!, IMAGE_REQUEST)
+        view?.let {
+            showImagePicker(view!!, IMAGE_REQUEST)
+        }
     }
 
     fun doSetLocation() {
+
         view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(ringfort.lat, ringfort.lng, ringfort.zoom))
     }
 
     override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         when (requestCode) {
             IMAGE_REQUEST -> {
-                if (data != null) {
-                    ringfort.images.add(data.getData().toString())
-                    //view.showRingfort(ringfort)
-                }
+                    ringfort.image = data.data.toString()
+                    view?.showRingfort(ringfort)
             }
             LOCATION_REQUEST -> {
                 val location = data.extras?.getParcelable<Location>("location")!!
