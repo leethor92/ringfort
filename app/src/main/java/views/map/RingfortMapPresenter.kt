@@ -9,6 +9,8 @@ import helpers.readImageFromPath
 import kotlinx.android.synthetic.main.content_ringfort_maps.*
 import main.MainApp
 import models.RingfortModel
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
 import views.BasePresenter
 import views.BaseView
 
@@ -26,11 +28,20 @@ class RingfortMapPresenter(view: BaseView) : BasePresenter(view){
 
     fun doMarkerSelected(marker: Marker){
         val tag = marker.tag as Long
-        val ringfort = app.ringforts.findById(tag)
-        if (ringfort != null) view?.showRingfort(ringfort)
+        doAsync {
+            val ringfort = app.ringforts.findById(tag)
+            uiThread {
+                if (ringfort != null) view?.showRingfort(ringfort)
+            }
+        }
     }
 
     fun loadRingforts() {
-        view?.showRingforts(app.ringforts.findAll())
+        doAsync {
+            val ringforts = app.ringforts.findAll()
+            uiThread {
+                view?.showRingforts(ringforts)
+            }
+        }
     }
 }

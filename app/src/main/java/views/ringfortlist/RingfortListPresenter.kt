@@ -5,9 +5,7 @@ import views.map.RingfortMapView
 import main.MainApp
 import models.RingfortModel
 import models.UserModel
-import org.jetbrains.anko.intentFor
-import org.jetbrains.anko.startActivity
-import org.jetbrains.anko.startActivityForResult
+import org.jetbrains.anko.*
 import views.BasePresenter
 import views.BaseView
 import views.VIEW
@@ -29,6 +27,11 @@ class RingfortListPresenter(view: BaseView) : BasePresenter(view) {
     }
 
     fun loadRingforts() {
-        view?.showRingforts(app.ringforts.findAll())
+        doAsync {
+            val ringforts = app.ringforts.findAll()
+            uiThread {
+                view?.showRingforts(ringforts)
+            }
+        }
     }
 }

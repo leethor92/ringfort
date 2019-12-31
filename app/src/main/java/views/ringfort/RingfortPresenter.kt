@@ -19,7 +19,9 @@ import helpers.showImagePicker
 import main.MainApp
 import models.Location
 import models.RingfortModel
+import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.uiThread
 import views.*
 import java.text.SimpleDateFormat
 import java.util.*
@@ -94,13 +96,16 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
         {
             ringfort.date = "Not Visited yet"
         }
-
-        if (edit) {
-            app.ringforts.update(ringfort)
-        } else {
-            app.ringforts.create(ringfort)
+        doAsync {
+            if (edit) {
+                app.ringforts.update(ringfort)
+            } else {
+                app.ringforts.create(ringfort)
+            }
+            uiThread {
+                view?.finish()
+            }
         }
-        view?.finish()
     }
 
 
