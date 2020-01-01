@@ -53,4 +53,8 @@ class RingfortMemStore : RingfortStore, AnkoLogger {
     override fun delete(ringfort: RingfortModel) {
         ringforts.remove(ringfort)
     }
+
+    override fun clear() {
+        ringforts.clear()
+    }
 }

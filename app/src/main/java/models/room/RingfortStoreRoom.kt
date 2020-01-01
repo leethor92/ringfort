@@ -35,4 +35,7 @@ class RingfortStoreRoom(val context: Context) : RingfortStore {
     override fun delete(ringfort: RingfortModel) {
         dao.deleteRingfort(ringfort)
     }
+
+    override fun clear() {
+    }
 }

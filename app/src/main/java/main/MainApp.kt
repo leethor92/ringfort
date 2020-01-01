@@ -2,6 +2,7 @@ package main
 
 import android.app.Application
 import models.*
+import models.firebase.RingfortFireStore
 import models.json.RingfortJSONStore
 import models.room.RingfortStoreRoom
 import org.jetbrains.anko.AnkoLogger
@@ -17,7 +18,8 @@ class MainApp : Application(), AnkoLogger {
     override fun onCreate() {
         setTheme(R.style.AppTheme)
         super.onCreate()
-        ringforts = RingfortStoreRoom(applicationContext)
+        //ringforts = RingfortStoreRoom(applicationContext)
+        ringforts = RingfortFireStore(applicationContext)
         users = UserJSONStore(applicationContext)
         info("Ringfort started")
     }

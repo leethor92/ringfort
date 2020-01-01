@@ -21,7 +21,7 @@ class RingfortMapPresenter(view: BaseView) : BasePresenter(view){
         ringforts.forEach {
             val loc = LatLng(it.lat, it.lng)
             val options = MarkerOptions().title(it.title).position(loc)
-            map.addMarker(options).tag = it.id
+            map.addMarker(options).tag = it
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(loc, it.zoom))
         }
     }
@@ -29,7 +29,7 @@ class RingfortMapPresenter(view: BaseView) : BasePresenter(view){
     fun doMarkerSelected(marker: Marker){
         val tag = marker.tag as Long
         doAsync {
-            val ringfort = app.ringforts.findById(tag)
+            val ringfort = marker.tag as RingfortModel
             uiThread {
                 if (ringfort != null) view?.showRingfort(ringfort)
             }

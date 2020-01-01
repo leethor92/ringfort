@@ -8,6 +8,7 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 @Entity
 data class RingfortModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,
+                         var fbId : String = "",
                          var image: String = "",
                          var title: String = "",
                          var description: String = "",

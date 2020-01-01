@@ -77,4 +77,8 @@ class RingfortJSONStore : RingfortStore, AnkoLogger {
         ringforts.remove(ringfort)
         serialize()
     }
+
+    override fun clear() {
+        ringforts.clear()
+    }
 }

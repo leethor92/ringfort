@@ -38,6 +38,7 @@ class RingfortListPresenter(view: BaseView) : BasePresenter(view) {
 
     fun doLogout() {
         FirebaseAuth.getInstance().signOut()
+        app.ringforts.clear()
         view?.navigateTo(VIEW.LOGIN)
     }
 
