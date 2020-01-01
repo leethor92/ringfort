@@ -9,6 +9,13 @@
         app:showAsAction="never" />
 
     <item
+        android:id="@+id/item_search"
+        android:icon="@android:drawable/ic_menu_search"
+        app:showAsAction="always|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"
+        android:title="Search for Ringforts"/>
+
+    <item
         android:id="@+id/item_favorites"
         android:title="Show Favorites"
         android:checkable="true"/>

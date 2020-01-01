@@ -50,4 +50,9 @@ class RingfortListPresenter(view: BaseView) : BasePresenter(view) {
         view?.showRingforts(if (checked) app.ringforts.findAll().filter { it.favourite } else app.ringforts.findAll())
     }
 
+    fun loadRingfortsSearch(containingString: String)
+    {
+        view?.showRingforts(app.ringforts.findAll().filter { it.title.toLowerCase().contains(containingString.toLowerCase()) })
+    }
+
 }

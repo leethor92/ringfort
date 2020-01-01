@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_ringfort_list.*
@@ -19,7 +20,8 @@ class RingfortListView :  BaseView(), RingfortListener {
     lateinit var presenter: RingfortListPresenter
     var showFavourites = false
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState: Bundle?)
+    {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_ringfort_list)
         super.init(toolbar, false);
@@ -32,6 +34,7 @@ class RingfortListView :  BaseView(), RingfortListener {
 
         val bottomNavView: BottomNavigationView = findViewById(R.id.ringfortBottomNav)
         bottomNavView.setOnNavigationItemSelectedListener { menuItem -> onOptionsItemSelected(menuItem) }
+
     }
 
 
@@ -45,6 +48,22 @@ class RingfortListView :  BaseView(), RingfortListener {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
+
+        val searchView: SearchView = menu?.findItem(R.id.item_search)?.actionView as SearchView
+        searchView.queryHint = "Search for a Ringfort"
+        searchView.setOnQueryTextListener(object: SearchView.OnQueryTextListener{
+            override fun onQueryTextChange(newText: String): Boolean {
+                presenter.loadRingfortsSearch(newText!!)
+                return false
+            }
+
+            override fun onQueryTextSubmit(query: String): Boolean {
+                if (query.isBlank() || query.isEmpty()) presenter.loadRingforts()
+                else presenter.loadRingfortsSearch(query)
+                return false
+            }
+        })
+
         return super.onCreateOptionsMenu(menu)
     }
 
