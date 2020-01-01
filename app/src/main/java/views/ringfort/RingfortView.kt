@@ -10,6 +10,8 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
+import androidx.appcompat.widget.ShareActionProvider
+import androidx.core.view.MenuItemCompat
 import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import helpers.readImageFromPath
@@ -37,6 +39,8 @@ class RingfortView : BaseView(), AnkoLogger {
     var ringfort = RingfortModel()
     lateinit var presenter: RingfortPresenter
     lateinit var map: GoogleMap
+
+    var shareActionProvider: ShareActionProvider? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +91,11 @@ class RingfortView : BaseView(), AnkoLogger {
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         menuInflater.inflate(R.menu.menu_ringfort, menu)
+
+        shareActionProvider = MenuItemCompat.getActionProvider(menu?.findItem(R.id.item_share)) as ShareActionProvider
+        shareActionProvider?.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME)
+        shareActionProvider?.setShareIntent(presenter.createShareIntent())
+
         return super.onCreateOptionsMenu(menu)
     }
 

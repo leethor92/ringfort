@@ -164,4 +164,12 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
             locationService.requestLocationUpdates(locationRequest, locationCallback, null)
         }
     }
+
+    fun createShareIntent(): Intent{
+        val text = "Ringfort: ${ringfort.title}, Description: ${ringfort.description}, Location: ${LatLng(ringfort.lat, ringfort.lng)}, Rating: ${ringfort.rating}"
+        val shareIntent = Intent(Intent.ACTION_SEND)
+        shareIntent.type = "text/plain"
+        shareIntent.putExtra(Intent.EXTRA_TEXT, text)
+        return shareIntent
+    }
 }
