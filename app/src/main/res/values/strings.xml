@@ -19,6 +19,7 @@
     <string name="hint_settingsPassword">Edit password</string>
     <string name="button_save_settings">Save Changes</string>
     <string name="checkboxRingFortVisited">checkboxRingFortVisited</string>
+    <string name="checkbox_fav">Favourite!!!</string>
     <string name="visitDate">visitDate</string>
     <string name="checkbox_visited">Visited!</string>
     <string name="hint_notes">Record any additional notes</string>

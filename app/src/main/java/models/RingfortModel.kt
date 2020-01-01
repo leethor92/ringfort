@@ -17,6 +17,8 @@ data class RingfortModel(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                          var zoom: Float = 0f,
                          var visited: Boolean = false,
                          var notes: String = "",
+                         var favourite: Boolean = false,
+                         var rating: Float = 0.0f,
                          var date: String = "") : Parcelable
 
 @Parcelize

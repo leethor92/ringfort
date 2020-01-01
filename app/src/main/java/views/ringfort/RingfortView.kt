@@ -72,6 +72,8 @@ class RingfortView : BaseView(), AnkoLogger {
         addNotes.setText(ringfort.notes)
         checkBox.isChecked = ringfort.visited
         dateVisited.setText(ringfort.date)
+        rating.rating = ringfort.rating
+        favouriteCheckbox.isChecked = ringfort.favourite
         Glide.with(this).load(ringfort.image).into(ringfortImage)
 
         if (ringfort.image != null) {
@@ -94,7 +96,7 @@ class RingfortView : BaseView(), AnkoLogger {
                 if (ringfortTitle.text.toString().isEmpty()) {
                     toast("Enter a title")
                 } else {
-                    presenter.doAddOrSave(ringfortTitle.text.toString(), description.text.toString(), checkBox.isChecked, addNotes.text.toString(), dateVisited.text.toString())
+                    presenter.doAddOrSave(ringfortTitle.text.toString(), description.text.toString(), checkBox.isChecked, addNotes.text.toString(), dateVisited.text.toString(), favouriteCheckbox.isChecked, rating.rating)
                 }
             }
             R.id.item_delete -> {

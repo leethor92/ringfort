@@ -59,6 +59,8 @@ class RingfortJSONStore : RingfortStore, AnkoLogger {
             foundRingfort.visited = ringfort.visited
             foundRingfort.notes = ringfort.notes
             foundRingfort.date = ringfort.date
+            foundRingfort.rating = ringfort.rating
+            foundRingfort.favourite = ringfort.favourite
         }
         serialize()
     }

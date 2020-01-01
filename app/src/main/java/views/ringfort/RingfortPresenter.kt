@@ -83,11 +83,13 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
         view?.showRingfort(ringfort)
     }
 
-    fun doAddOrSave(title: String, description: String, checkBox: Boolean, addNotes: String, date: String) {
+    fun doAddOrSave(title: String, description: String, checkBox: Boolean, addNotes: String, date: String, favourite: Boolean, rating: Float) {
         ringfort.title = title
         ringfort.description = description
         ringfort.notes = addNotes
         ringfort.visited = checkBox
+        ringfort.favourite = favourite
+        ringfort.rating = rating
 
         if (ringfort.visited == true) {
             ringfort.date = currentDate
