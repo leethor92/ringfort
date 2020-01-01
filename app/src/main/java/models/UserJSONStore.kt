@@ -74,4 +74,3 @@ class UserJSONStore: UserStore, AnkoLogger {
         users = Gson().fromJson(jsonString, userListType)
     }
 }
-

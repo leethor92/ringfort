@@ -5,6 +5,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 apply plugin: "kotlin-kapt"
+
 apply plugin: 'com.google.gms.google-services'
 
 android {
@@ -12,7 +13,7 @@ android {
     buildToolsVersion "29.0.2"
     defaultConfig {
         applicationId "org.wit.ringfort"
-        minSdkVersion 23
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"

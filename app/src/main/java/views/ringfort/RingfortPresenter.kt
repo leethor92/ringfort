@@ -115,8 +115,12 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
     }
 
     fun doDelete() {
-        app.ringforts.delete(ringfort)
-        view?.finish()
+        doAsync {
+            app.ringforts.delete(ringfort)
+            uiThread {
+                view?.finish()
+            }
+        }
     }
 
     fun doSelectImage() {
