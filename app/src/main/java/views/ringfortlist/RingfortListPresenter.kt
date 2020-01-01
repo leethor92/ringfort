@@ -46,4 +46,8 @@ class RingfortListPresenter(view: BaseView) : BasePresenter(view) {
         view?.navigateTo(VIEW.SETTINGS)
     }
 
+    fun doShowFavourites(checked: Boolean){
+        view?.showRingforts(if (checked) app.ringforts.findAll().filter { it.favourite } else app.ringforts.findAll())
+    }
+
 }

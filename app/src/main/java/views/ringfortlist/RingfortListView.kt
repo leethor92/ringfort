@@ -16,7 +16,7 @@ import views.BaseView
 class RingfortListView :  BaseView(), RingfortListener {
 
     lateinit var presenter: RingfortListPresenter
-
+    var showFavourites = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,6 +47,10 @@ class RingfortListView :  BaseView(), RingfortListener {
             R.id.item_map -> presenter.doShowRingfortsMap()
             R.id.item_logout ->presenter.doLogout()
             R.id.item_settings ->presenter.doSettings()
+            R.id.item_favorites -> {
+                item.isChecked = !item.isChecked
+                presenter.doShowFavourites(item.isChecked)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
