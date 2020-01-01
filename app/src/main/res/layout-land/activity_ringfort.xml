@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="activities.RingfortView">
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintTop_toTopOf="parent">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent"
+        android:fitsSystemWindows="true"
+        app:elevation="0dip"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+      <androidx.appcompat.widget.Toolbar
+          android:id="@+id/toolbarAdd"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          app:titleTextColor="@color/colorPrimary" />
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <EditText
+          android:id="@+id/ringfortTitle"
+          android:layout_width="166dp"
+          android:layout_height="55dp"
+          android:layout_marginTop="76dp"
+          android:ems="10"
+          android:hint="@string/hint_ringfortTitle"
+          android:inputType="text"
+          android:textColor="@color/colorPrimaryDark"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <EditText
+          android:id="@+id/description"
+          android:layout_width="165dp"
+          android:layout_height="49dp"
+          android:layout_marginTop="48dp"
+          android:hint="@string/hint_ringfortDescription"
+          android:inputType="text"
+          android:textColor="@color/colorPrimaryDark"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/ringfortTitle" />
+
+      <TextView
+          android:id="@+id/lat"
+          android:layout_width="99dp"
+          android:layout_height="55dp"
+          android:layout_marginStart="40dp"
+          android:layout_marginTop="76dp"
+          android:inputType="text"
+          android:textColor="@color/colorPrimaryDark"
+          app:layout_constraintStart_toEndOf="@+id/ringfortTitle"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <TextView
+          android:id="@+id/lng"
+          android:layout_width="83dp"
+          android:layout_height="46dp"
+          android:layout_marginStart="60dp"
+          android:layout_marginTop="48dp"
+          android:inputType="text"
+          android:textColor="@color/colorPrimaryDark"
+          app:layout_constraintStart_toEndOf="@+id/description"
+          app:layout_constraintTop_toBottomOf="@+id/lat" />
+
+      <EditText
+          android:id="@+id/addNotes"
+          android:layout_width="245dp"
+          android:layout_height="66dp"
+          android:layout_marginTop="26dp"
+          android:background="@android:color/darker_gray"
+          android:ems="10"
+          android:gravity="start|top"
+          android:hint="@string/hint_notes"
+          android:inputType="textMultiLine"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/description" />
+
+      <Button
+          android:id="@+id/chooseImage"
+          android:layout_width="219dp"
+          android:layout_height="44dp"
+          android:layout_marginTop="28dp"
+          android:layout_marginBottom="19dp"
+          android:background="@color/colorAccent"
+          android:text="@string/button_addImage"
+          android:textColor="@color/colorPrimary"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toStartOf="parent"
+          app:layout_constraintTop_toBottomOf="@+id/addNotes" />
+
+      <CheckBox
+          android:id="@+id/checkBox"
+          android:layout_width="102dp"
+          android:layout_height="46dp"
+          android:layout_marginStart="33dp"
+          android:layout_marginTop="80dp"
+          android:onClick="onCheckboxClicked"
+          android:text="@string/checkbox_visited"
+          app:layout_constraintStart_toEndOf="@+id/lat"
+          app:layout_constraintTop_toTopOf="parent" />
+
+      <CheckBox
+          android:id="@+id/favouriteCheckbox"
+          android:layout_width="106dp"
+          android:layout_height="47dp"
+          android:layout_marginStart="31dp"
+          android:layout_marginTop="51dp"
+          android:text="@string/checkbox_fav"
+          app:layout_constraintStart_toEndOf="@+id/lng"
+          app:layout_constraintTop_toBottomOf="@+id/checkBox" />
+
+      <EditText
+          android:id="@+id/dateVisited"
+          android:layout_width="123dp"
+          android:layout_height="66dp"
+          android:clickable="false"
+          android:cursorVisible="false"
+          android:layout_marginStart="57dp"
+          android:layout_marginTop="31dp"
+          android:hint="@string/hint_date"
+          android:inputType="date"
+          app:layout_constraintStart_toEndOf="@+id/addNotes"
+          app:layout_constraintTop_toBottomOf="@+id/lng" />
+
+      <RatingBar
+          android:id="@+id/rating"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="27dp"
+          android:layout_marginTop="16dp"
+          android:layout_marginBottom="16dp"
+          android:numStars="5"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/chooseImage"
+          app:layout_constraintTop_toBottomOf="@+id/dateVisited" />
+
+      <ImageView
+          android:id="@+id/ringfortImage"
+          android:layout_width="189dp"
+          android:layout_height="159dp"
+          android:layout_marginStart="97dp"
+          android:layout_marginTop="76dp"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/favouriteCheckbox"
+          app:layout_constraintTop_toTopOf="parent"
+          tools:srcCompat="@mipmap/ic_launcher" />
+
+      <com.google.android.gms.maps.MapView
+          android:id="@+id/mapView2"
+          android:layout_width="184dp"
+          android:layout_height="135dp"
+          android:layout_marginStart="61dp"
+          android:layout_marginTop="21dp"
+          android:layout_marginBottom="20dp"
+          app:layout_constraintBottom_toBottomOf="parent"
+          app:layout_constraintEnd_toEndOf="parent"
+          app:layout_constraintStart_toEndOf="@+id/rating"
+          app:layout_constraintTop_toBottomOf="@+id/ringfortImage" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+  </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

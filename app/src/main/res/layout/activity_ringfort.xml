@@ -128,7 +128,8 @@
                     android:id="@+id/rating"
                     android:layout_width="250dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center"
+                    android:numStars="5"/>
 
                 <EditText
                     android:id="@+id/dateVisited"
