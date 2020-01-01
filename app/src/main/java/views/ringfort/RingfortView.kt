@@ -10,6 +10,7 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.ImageView
 import android.widget.LinearLayout
+import com.bumptech.glide.Glide
 import com.google.android.gms.maps.GoogleMap
 import helpers.readImageFromPath
 import helpers.showImagePicker
@@ -71,8 +72,8 @@ class RingfortView : BaseView(), AnkoLogger {
         addNotes.setText(ringfort.notes)
         checkBox.isChecked = ringfort.visited
         dateVisited.setText(ringfort.date)
+        Glide.with(this).load(ringfort.image).into(ringfortImage)
 
-        ringfortImage.setImageBitmap(readImageFromPath(this, ringfort.image))
         if (ringfort.image != null) {
             chooseImage.setText(R.string.change_ringfort_image)
         }

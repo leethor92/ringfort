@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import helpers.readImageFromPath
 import kotlinx.android.synthetic.main.card_ringfort.view.*
 import org.wit.ringfort.R
@@ -39,7 +40,7 @@ class RingfortAdapter constructor(
         fun bind(ringfort: RingfortModel, listener: RingfortListener) {
             itemView.ringfortTitle.text = ringfort.title
             itemView.description.text = ringfort.description
-            itemView.imageIcon.setImageBitmap(readImageFromPath(itemView.context, ringfort.image))
+            Glide.with(itemView.context).load(ringfort.image).into(itemView.imageIcon)
             itemView.setOnClickListener { listener.onRingfortClick(ringfort) }
         }
     }
