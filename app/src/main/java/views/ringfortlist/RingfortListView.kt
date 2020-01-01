@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.android.synthetic.main.activity_ringfort_list.*
 import org.wit.ringfort.R
 import models.RingfortModel
@@ -28,7 +29,13 @@ class RingfortListView :  BaseView(), RingfortListener {
         val layoutManager = LinearLayoutManager(this)
         recyclerView.layoutManager = layoutManager
         presenter.loadRingforts()
+
+        val bottomNavView: BottomNavigationView = findViewById(R.id.ringfortBottomNav)
+        bottomNavView.setOnNavigationItemSelectedListener { menuItem -> onOptionsItemSelected(menuItem) }
     }
+
+
+
 
     override fun showRingforts(ringforts: List<RingfortModel>) {
         recyclerView.adapter = RingfortAdapter(ringforts, this)
