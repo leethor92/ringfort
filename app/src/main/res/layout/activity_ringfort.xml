@@ -158,9 +158,21 @@
                     android:textColor="@color/colorPrimary"
                     android:textSize="16sp" />
 
+                <Button
+                    android:id="@+id/ringfortNavigateButton"
+                    style="?android:attr/buttonBarStyle"
+                    android:layout_width="375dp"
+                    android:layout_height="33dp"
+                    android:layout_margin="8dp"
+                    android:background="@color/colorAccent"
+                    android:gravity="center_horizontal"
+                    android:text="Show directions"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
                 <ImageView
                     android:id="@+id/ringfortImage"
-                    android:layout_width="396dp"
+                    android:layout_width="200dp"
                     android:layout_height="110dp"
                     android:layout_marginStart="4dp"
                     android:layout_marginTop="22dp"

@@ -11,6 +11,7 @@ import org.jetbrains.anko.AnkoLogger
 import views.editlocation.EditLocationView
 import views.login.LoginView
 import views.map.RingfortMapView
+import views.navigator.NavigatorView
 import views.ringfortlist.RingfortListView
 import views.settings.SettingsView
 
@@ -18,7 +19,7 @@ val IMAGE_REQUEST = 1
 val LOCATION_REQUEST = 2
 
 enum class VIEW {
-    LOCATION, RINGFORT, MAPS, LIST, LOGIN, SETTINGS
+    LOCATION, RINGFORT, MAPS, LIST, LOGIN, SETTINGS, NAVIGATOR
 }
 
 open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
@@ -34,6 +35,7 @@ open abstract class BaseView() : AppCompatActivity(), AnkoLogger {
             VIEW.LIST -> intent = Intent(this, RingfortListView::class.java)
             VIEW.LOGIN -> intent = Intent(this, LoginView::class.java)
             VIEW.SETTINGS -> intent = Intent(this, SettingsView::class.java)
+            VIEW.NAVIGATOR -> intent = Intent(this, NavigatorView::class.java)
         }
         if (key != "") {
             intent.putExtra(key, value)

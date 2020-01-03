@@ -24,12 +24,19 @@
         <activity
             android:name="views.editlocation.EditLocationView"
             android:label="@string/title_activity_map" />
+
         <activity
             android:name="activities.RingfortView"
             android:parentActivityName="views.ringfortlist.RingfortListView" />
+
         <activity android:name="views.ringfortlist.RingfortListView"
             android:parentActivityName="views.ringfortlist.RingfortListView" />
+
+        <activity android:name="views.navigator.NavigatorView"
+            android:parentActivityName="views.navigator.NavigatorView" />
+
         <activity android:name="views.settings.SettingsView" />
+
         <activity android:name="views.login.LoginView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -68,6 +68,10 @@ class RingfortView : BaseView(), AnkoLogger {
             presenter.doConfigureMap(it)
             it.setOnMapClickListener { presenter.doSetLocation() }
         }
+
+        ringfortNavigateButton.setOnClickListener {
+            presenter.doNavigation()
+        }
     }
 
     override fun showRingfort(ringfort: RingfortModel) {

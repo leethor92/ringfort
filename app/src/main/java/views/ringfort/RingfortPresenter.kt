@@ -134,6 +134,12 @@ class RingfortPresenter(view: BaseView) : BasePresenter(view) {
         view?.navigateTo(VIEW.LOCATION, LOCATION_REQUEST, "location", Location(ringfort.lat, ringfort.lng, ringfort.zoom))
     }
 
+    fun doNavigation(): Boolean {
+        view?.finish()
+        view?.navigateTo(VIEW.NAVIGATOR, 0, "ringfort", ringfort)
+        return true
+    }
+
     override fun doActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         when (requestCode) {
             IMAGE_REQUEST -> {
