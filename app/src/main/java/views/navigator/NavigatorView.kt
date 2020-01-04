@@ -10,10 +10,10 @@ import views.BaseView
 
 class NavigatorView : BaseView() {
 
-  private lateinit var presenter: NavigatorPresenter
-  private lateinit var map: GoogleMap
+  lateinit var presenter: NavigatorPresenter
+  lateinit var map: GoogleMap
 
-  private var myLocation: LatLng = LatLng(0.0, 0.0)
+  var myLocation: LatLng = LatLng(0.0, 0.0)
 
 
   override fun onCreate(savedInstanceState: Bundle?) {

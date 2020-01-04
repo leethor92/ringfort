@@ -27,7 +27,6 @@ class RingfortMapPresenter(view: BaseView) : BasePresenter(view){
     }
 
     fun doMarkerSelected(marker: Marker){
-        val tag = marker.tag as Long
         doAsync {
             val ringfort = marker.tag as RingfortModel
             uiThread {

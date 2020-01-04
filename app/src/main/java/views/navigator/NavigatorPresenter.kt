@@ -27,12 +27,12 @@ import java.util.concurrent.TimeUnit
 
 class NavigatorPresenter(view: BaseView) : BasePresenter(view) {
 
-  private var locationService: FusedLocationProviderClient =
+  var locationService: FusedLocationProviderClient =
       LocationServices.getFusedLocationProviderClient(view)
-  private lateinit var myLocation: LatLng
-  private val overview = 0
-  private var ringfort = RingfortModel()
-  private var ringfortLocation = LatLng(0.0, 0.0)
+  lateinit var myLocation: LatLng
+  val overview = 0
+  var ringfort = RingfortModel()
+  var ringfortLocation = LatLng(0.0, 0.0)
 
   init {
     if (checkLocationPermissions(view)) {
@@ -71,7 +71,7 @@ class NavigatorPresenter(view: BaseView) : BasePresenter(view) {
     }
   }
 
-  private fun doSetCurrentLocation() {
+  fun doSetCurrentLocation() {
     locationService.lastLocation.addOnSuccessListener {
       myLocation = LatLng(it.latitude, it.longitude)
     }
@@ -81,7 +81,7 @@ class NavigatorPresenter(view: BaseView) : BasePresenter(view) {
     return myLocation
   }
 
-  private fun getGeoContext(): GeoApiContext? {
+  fun getGeoContext(): GeoApiContext? {
     val geoApiContext = GeoApiContext()
     return geoApiContext.setQueryRateLimit(3)
         .setApiKey(view?.getString(R.string.google_maps_key))
@@ -89,7 +89,7 @@ class NavigatorPresenter(view: BaseView) : BasePresenter(view) {
         .setWriteTimeout(1, TimeUnit.SECONDS)
   }
 
-  private fun getDirectionsDetails(
+  fun getDirectionsDetails(
       origin: LatLng,
       destination: LatLng,
       mode: TravelMode
@@ -116,7 +116,7 @@ class NavigatorPresenter(view: BaseView) : BasePresenter(view) {
     }
   }
 
-  private fun addMarkersToMap(results: DirectionsResult, mMap: GoogleMap) {
+  fun addMarkersToMap(results: DirectionsResult, mMap: GoogleMap) {
 
     mMap.addMarker(
         MarkerOptions().position(
@@ -130,7 +130,7 @@ class NavigatorPresenter(view: BaseView) : BasePresenter(view) {
     )
   }
 
-  private fun positionCamera(route: DirectionsRoute, mMap: GoogleMap) {
+  fun positionCamera(route: DirectionsRoute, mMap: GoogleMap) {
     mMap.moveCamera(
         CameraUpdateFactory.newLatLngZoom(
             LatLng(
